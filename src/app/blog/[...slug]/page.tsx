@@ -13,13 +13,15 @@ import travelhero2Image from "@/images/travelhero2.png";
 import Link from "next/link";
 import { Route } from "@/routers/types";
 
-const Page = ({
+const Page = async ({
   params,
   searchParams,
 }: {
-  params: { stepIndex: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  params: Promise<{ slug: string[] }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
   const renderHeader = () => {
     return (
       <header className="container rounded-xl">
@@ -199,7 +201,7 @@ const Page = ({
             <span className="text-sm text-neutral-500 sm:text-base dark:text-neutral-300">
               There’s no stopping the tech giant. Apple now opens its 100th
               store in China.There’s no stopping the tech giant.
-              <a className="text-primary-6000 font-medium ml-1" href="/">
+              <a className="text-primary-600 font-medium ml-1" href="/">
                 Readmore
               </a>
             </span>

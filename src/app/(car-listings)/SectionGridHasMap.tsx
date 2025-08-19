@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC, useState } from "react";
-import GoogleMapReact from "google-map-react";
+import { GoogleMap, LoadScript, OverlayView } from "@react-google-maps/api";
 import { DEMO_CAR_LISTINGS } from "@/data/listings";
 import ButtonClose from "@/shared/ButtonClose";
 import Checkbox from "@/shared/Checkbox";
@@ -84,24 +84,28 @@ const SectionGridHasMap: FC<SectionGridHasMapProps> = () => {
             </div>
             {/* BELLOW IS MY GOOGLE API KEY -- PLEASE DELETE AND TYPE YOUR API KEY */}
 
-            <GoogleMapReact
-              bootstrapURLKeys={{
-                key: "AIzaSyAGVJfZMAKYfZ71nzL_v5i3LjTTWnCYwTY",
-              }}
-              yesIWantToUseGoogleMapApiInternals
-              defaultZoom={12}
-              defaultCenter={DEMO_CARS[0].map}
-            >
-              {DEMO_CARS.map((item) => (
-                <AnyReactComponent
-                  isSelected={currentHoverID === item.id}
-                  key={item.id}
-                  lat={item.map.lat}
-                  lng={item.map.lng}
-                  car={item}
-                />
-              ))}
-            </GoogleMapReact>
+            <LoadScript googleMapsApiKey="AIzaSyAGVJfZMAKYfZ71nzL_v5i3LjTTWnCYwTY">
+              <GoogleMap
+                mapContainerStyle={{ width: "100%", height: "100%" }}
+                zoom={12}
+                center={DEMO_CARS[0].map}
+              >
+                {DEMO_CARS.map((item) => (
+                  <OverlayView
+                    key={item.id}
+                    position={item.map}
+                    mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                  >
+                    <AnyReactComponent
+                      isSelected={currentHoverID === item.id}
+                      lat={item.map.lat}
+                      lng={item.map.lng}
+                      car={item}
+                    />
+                  </OverlayView>
+                ))}
+              </GoogleMap>
+            </LoadScript>
           </div>
         </div>
       </div>

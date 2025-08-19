@@ -3,7 +3,7 @@
 import { MapPinIcon } from "@heroicons/react/24/solid";
 import LocationMarker from "@/components/AnyReactComponent/LocationMarker";
 import Label from "@/components/Label";
-import GoogleMapReact from "google-map-react";
+import { GoogleMap, LoadScript, OverlayView } from "@react-google-maps/api";
 import React, { FC } from "react";
 import ButtonSecondary from "@/shared/ButtonSecondary";
 import Input from "@/shared/Input";
@@ -60,19 +60,26 @@ const PageAddListing2: FC<PageAddListing2Props> = () => {
           <div className="mt-4">
             <div className="aspect-w-5 aspect-h-5 sm:aspect-h-3">
               <div className="rounded-xl overflow-hidden">
-                <GoogleMapReact
-                  bootstrapURLKeys={{
-                    key: "AIzaSyAGVJfZMAKYfZ71nzL_v5i3LjTTWnCYwTY",
-                  }}
-                  yesIWantToUseGoogleMapApiInternals
-                  defaultZoom={15}
-                  defaultCenter={{
-                    lat: 55.9607277,
-                    lng: 36.2172614,
-                  }}
-                >
-                  <LocationMarker lat={55.9607277} lng={36.2172614} />
-                </GoogleMapReact>
+                <LoadScript googleMapsApiKey="AIzaSyAGVJfZMAKYfZ71nzL_v5i3LjTTWnCYwTY">
+                  <GoogleMap
+                    mapContainerStyle={{ width: "100%", height: "100%" }}
+                    zoom={15}
+                    center={{
+                      lat: 55.9607277,
+                      lng: 36.2172614,
+                    }}
+                  >
+                    <OverlayView
+                      position={{
+                        lat: 55.9607277,
+                        lng: 36.2172614,
+                      }}
+                      mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                    >
+                      <LocationMarker lat={55.9607277} lng={36.2172614} />
+                    </OverlayView>
+                  </GoogleMap>
+                </LoadScript>
               </div>
             </div>
           </div>

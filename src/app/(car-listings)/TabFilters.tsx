@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Fragment, useState } from "react";
-import { Dialog, Popover, Transition } from "@headlessui/react";
+import { Dialog, Popover } from "@headlessui/react";
 import NcInputNumber from "@/components/NcInputNumber";
 import ButtonPrimary from "@/shared/ButtonPrimary";
 import ButtonThird from "@/shared/ButtonThird";
@@ -86,16 +86,7 @@ const TabFilters = () => {
               <span>Car type</span>
               <i className="las la-angle-down ml-2"></i>
             </Popover.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-md">
+            <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-md">
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-5">
                     {typeOfCar.map((item) => (
@@ -121,7 +112,6 @@ const TabFilters = () => {
                   </div>
                 </div>
               </Popover.Panel>
-            </Transition>
           </>
         )}
       </Popover>
@@ -143,16 +133,7 @@ const TabFilters = () => {
               </span>
               {renderXClear()}
             </Popover.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 ">
+            <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 ">
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-8">
                     <div className="space-y-5">
@@ -230,7 +211,6 @@ const TabFilters = () => {
                   </div>
                 </div>
               </Popover.Panel>
-            </Transition>
           </>
         )}
       </Popover>
@@ -266,16 +246,7 @@ const TabFilters = () => {
               <span>Guests & Bags</span>
               <i className="las la-angle-down ml-2"></i>
             </Popover.Button>
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-md">
+            <Popover.Panel className="absolute z-10 w-screen max-w-sm px-4 mt-3 left-0 sm:px-0 lg:max-w-md">
                 <div className="overflow-hidden rounded-2xl shadow-xl bg-white dark:bg-neutral-900   border border-neutral-200 dark:border-neutral-700">
                   <div className="relative flex flex-col px-5 py-6 space-y-5">
                     <NcInputNumber label="Passengers" max={40} />
@@ -294,7 +265,6 @@ const TabFilters = () => {
                   </div>
                 </div>
               </Popover.Panel>
-            </Transition>
           </>
         )}
       </Popover>
@@ -352,42 +322,23 @@ const TabFilters = () => {
           {renderXClear()}
         </div>
 
-        <Transition appear show={isOpenMoreFilterMobile} as={Fragment}>
-          <Dialog
-            as="div"
-            className="fixed inset-0 z-50 overflow-y-auto"
-            onClose={closeModalMoreFilterMobile}
-          >
-            <div className="min-h-screen text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-40 dark:bg-opacity-60" />
-              </Transition.Child>
+        <Dialog
+          open={isOpenMoreFilterMobile}
+          onClose={closeModalMoreFilterMobile}
+          className="fixed inset-0 z-50 overflow-y-auto"
+        >
+          <div className="min-h-screen text-center">
+            <div className="fixed inset-0 bg-black bg-opacity-40 dark:bg-opacity-60" />
 
-              {/* This element is to trick the browser into centering the modal contents. */}
-              <span
-                className="inline-block h-screen align-middle"
-                aria-hidden="true"
-              >
-                &#8203;
-              </span>
-              <Transition.Child
-                className="inline-block py-8 px-2 h-screen w-full max-w-4xl"
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <div className="inline-flex flex-col w-full max-w-4xl text-left align-middle transition-all transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 shadow-xl h-full">
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <div className="inline-block py-8 px-2 h-screen w-full max-w-4xl">
+              <div className="inline-flex flex-col w-full max-w-4xl text-left align-middle transition-all transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 shadow-xl h-full">
                   <div className="relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
                     <Dialog.Title
                       as="h3"
@@ -542,10 +493,9 @@ const TabFilters = () => {
                     </ButtonPrimary>
                   </div>
                 </div>
-              </Transition.Child>
+              </div>
             </div>
           </Dialog>
-        </Transition>
       </div>
     );
   };
@@ -562,42 +512,23 @@ const TabFilters = () => {
           {renderXClear()}
         </div>
 
-        <Transition appear show={isOpenMoreFilter} as={Fragment}>
-          <Dialog
-            as="div"
-            className="fixed inset-0 z-50 overflow-y-auto"
-            onClose={closeModalMoreFilter}
-          >
-            <div className="min-h-screen text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-              >
-                <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-40 dark:bg-opacity-60" />
-              </Transition.Child>
+        <Dialog
+          open={isOpenMoreFilter}
+          onClose={closeModalMoreFilter}
+          className="fixed inset-0 z-50 overflow-y-auto"
+        >
+          <div className="min-h-screen text-center">
+            <div className="fixed inset-0 bg-black bg-opacity-40 dark:bg-opacity-60" />
 
-              {/* This element is to trick the browser into centering the modal contents. */}
-              <span
-                className="inline-block h-screen align-middle"
-                aria-hidden="true"
-              >
-                &#8203;
-              </span>
-              <Transition.Child
-                className="inline-block py-8 px-2 h-screen w-full max-w-4xl"
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <div className="inline-flex flex-col w-full max-w-4xl text-left align-middle transition-all transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 shadow-xl h-full">
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span
+              className="inline-block h-screen align-middle"
+              aria-hidden="true"
+            >
+              &#8203;
+            </span>
+            <div className="inline-block py-8 px-2 h-screen w-full max-w-4xl">
+              <div className="inline-flex flex-col w-full max-w-4xl text-left align-middle transition-all transform overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 dark:border dark:border-neutral-700 dark:text-neutral-100 shadow-xl h-full">
                   <div className="relative flex-shrink-0 px-6 py-4 border-b border-neutral-200 dark:border-neutral-800 text-center">
                     <Dialog.Title
                       as="h3"
@@ -656,10 +587,9 @@ const TabFilters = () => {
                     </ButtonPrimary>
                   </div>
                 </div>
-              </Transition.Child>
+              </div>
             </div>
           </Dialog>
-        </Transition>
       </div>
     );
   };

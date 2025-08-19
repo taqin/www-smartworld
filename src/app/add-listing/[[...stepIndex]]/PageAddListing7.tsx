@@ -38,7 +38,7 @@ const PageAddListing7: FC<PageAddListing7Props> = () => {
                 <div className="flex text-sm text-neutral-6000 dark:text-neutral-300">
                   <label
                     htmlFor="file-upload"
-                    className="relative cursor-pointer  rounded-md font-medium text-primary-6000 hover:text-primary-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500"
+                    className="relative cursor-pointer  rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500"
                   >
                     <span>Upload a file</span>
                     <input
@@ -80,7 +80,7 @@ const PageAddListing7: FC<PageAddListing7Props> = () => {
                 <div className="flex text-sm text-neutral-6000 dark:text-neutral-300">
                   <label
                     htmlFor="file-upload-2"
-                    className="relative cursor-pointer  rounded-md font-medium text-primary-6000 hover:text-primary-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500"
+                    className="relative cursor-pointer  rounded-md font-medium text-primary-600 hover:text-primary-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-primary-500"
                   >
                     <span>Upload a file</span>
                     <input
