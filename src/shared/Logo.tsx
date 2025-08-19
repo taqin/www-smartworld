@@ -1,6 +1,6 @@
 import React from "react";
-import logoImg from "@/images/swtt-logo.png";
-import logoLightImg from "@/images/swtt-logo.png";
+import logoImg from "@/images/SWTT-Logo.svg";
+import logoLightImg from "@/images/SWTT-Logo.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { StaticImageData } from "next/image";
@@ -25,7 +25,7 @@ const Logo: React.FC<LogoProps> = ({
         <Image
           className={`block max-h-12 w-auto ${imgLight ? "dark:hidden" : ""}`}
           src={img}
-          alt="SWTT Logo"
+alt="Smart World Travel & Tours"
           priority
         />
       ) : (
@@ -35,7 +35,7 @@ const Logo: React.FC<LogoProps> = ({
         <Image
           className="hidden max-h-12 w-auto dark:block"
           src={imgLight}
-          alt="SWTT Logo Light"
+alt="Smart World Travel & Tours"
           priority
         />
       )}

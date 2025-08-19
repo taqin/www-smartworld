@@ -5,14 +5,15 @@ import ListingImageGallery from "@/components/listing-image-gallery/ListingImage
 import SectionSliderNewCategories from "@/components/SectionSliderNewCategories";
 import SectionSubscribe2 from "@/components/SectionSubscribe2";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { ReactNode } from "react";
+import React, { ReactNode, Suspense } from "react";
 import MobileFooterSticky from "./(components)/MobileFooterSticky";
 import { imageGallery as listingStayImageGallery } from "./listing-stay-detail/constant";
 import { imageGallery as listingCarImageGallery } from "./listing-car-detail/constant";
 import { imageGallery as listingExperienceImageGallery } from "./listing-experiences-detail/constant";
 import { Route } from "next";
 
-const DetailtLayout = ({ children }: { children: ReactNode }) => {
+// Component that uses useSearchParams wrapped in Suspense
+const DetailLayoutContent = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const thisPathname = usePathname();
   const searchParams = useSearchParams();
@@ -39,7 +40,7 @@ const DetailtLayout = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <div className="ListingDetailPage">
+    <>
       <ListingImageGallery
         isShowModal={modal === "PHOTO_TOUR_SCROLLABLE"}
         onClose={handleCloseModalImageGallery}
@@ -65,6 +66,16 @@ const DetailtLayout = ({ children }: { children: ReactNode }) => {
 
       {/* STICKY FOOTER MOBILE */}
       <MobileFooterSticky />
+    </>
+  );
+};
+
+const DetailtLayout = ({ children }: { children: ReactNode }) => {
+  return (
+    <div className="ListingDetailPage">
+      <Suspense fallback={<div>Loading...</div>}>
+        <DetailLayoutContent>{children}</DetailLayoutContent>
+      </Suspense>
     </div>
   );
 };

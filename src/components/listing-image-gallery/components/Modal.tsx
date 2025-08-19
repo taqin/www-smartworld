@@ -3,14 +3,14 @@
 import { Dialog } from "@headlessui/react";
 import { motion } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useRef, useState } from "react";
+import { useRef, useState, Suspense } from "react";
 import useKeypress from "react-use-keypress";
 import { getNewParam } from "../ListingImageGallery";
 import type { ListingGalleryImage } from "../utils/types";
 import SharedModal from "./SharedModal";
 import { Route } from "next";
 
-export default function Modal({
+function ModalContent({
   images,
   onClose,
 }: {
@@ -62,9 +62,8 @@ export default function Modal({
         initialFocus={overlayRef}
         className="fixed inset-0 z-50 flex items-center justify-center "
       >
-        <Dialog.Overlay
+        <motion.div
           ref={overlayRef}
-          as={motion.div}
           key="backdrop"
           className="fixed inset-0 z-30 bg-black"
           initial={{ opacity: 0 }}
@@ -80,5 +79,16 @@ export default function Modal({
         />
       </Dialog>
     </>
+  );
+}
+
+export default function Modal(props: {
+  images: ListingGalleryImage[];
+  onClose?: () => void;
+}) {
+  return (
+    <Suspense fallback={<div>Loading modal...</div>}>
+      <ModalContent {...props} />
+    </Suspense>
   );
 }
