@@ -134,6 +134,9 @@
   src: url("../fonts/Be_Vietnam/BeVietnam-Bold.ttf");
 }
 
+// FONT FACE --Quicksand (Google Fonts via CSS Variable)
+// Quicksand is loaded via Next.js Google Fonts and available as --font-quicksand
+
 //
 html body {
   @apply font-body antialiased;
@@ -147,8 +150,8 @@ h4 {
 }
 
 :root {
-  --font-display: Poppins;
-  --font-body: Poppins;
+  --font-display: var(--font-quicksand);
+  --font-body: var(--font-quicksand);
 }
 
 .theme-animals {
@@ -159,4 +162,9 @@ h4 {
 .theme-astronomy {
   --font-display: BeVietnam;
   --font-body: BeVietnam;
+}
+
+.theme-travel {
+  --font-display: var(--font-quicksand);
+  --font-body: var(--font-quicksand);
 }

@@ -22,6 +22,8 @@ const ClientCommons = () => {
     if (pathname === "/home-2") {
       newBodyClass = "theme-cyan-blueGrey";
     }
+    
+    // Quicksand is now the default font, no need for travel-specific theme
 
     newBodyClass && $body.classList.add(newBodyClass);
     return () => {

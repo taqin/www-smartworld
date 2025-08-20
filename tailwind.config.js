@@ -28,6 +28,11 @@ module.exports = {
     },
 
     extend: {
+      fontFamily: {
+        display: ["var(--font-display)", ...defaultTheme.fontFamily.sans],
+        body: ["var(--font-body)", ...defaultTheme.fontFamily.sans],
+        quicksand: ["var(--font-quicksand)", ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         primary: {
           50: customColors("--c-primary-50"),

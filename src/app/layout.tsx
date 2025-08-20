@@ -1,4 +1,4 @@
-import { Poppins } from "next/font/google";
+import { Quicksand } from "next/font/google";
 import SiteHeader from "./(client-components)/(Header)/SiteHeader";
 import ClientCommons from "./ClientCommons";
 import "./globals.css";
@@ -8,10 +8,11 @@ import "rc-slider/assets/index.css";
 import Footer from "@/components/Footer";
 import FooterNav from "@/components/FooterNav";
 
-const poppins = Poppins({
+const quicksand = Quicksand({
   subsets: ["latin"],
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-quicksand",
 });
 
 export default function RootLayout({
@@ -22,7 +23,7 @@ export default function RootLayout({
   params: any;
 }) {
   return (
-    <html lang="en" className={poppins.className}>
+    <html lang="en" className={`${quicksand.className} ${quicksand.variable}`}>
       <body className="bg-white text-base dark:bg-neutral-900 text-neutral-900 dark:text-neutral-200">
         <ClientCommons />
         <SiteHeader />
