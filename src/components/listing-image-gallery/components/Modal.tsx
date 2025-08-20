@@ -4,7 +4,7 @@ import { Dialog } from "@headlessui/react";
 import { motion } from "framer-motion";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useRef, useState, Suspense } from "react";
-import useKeypress from "react-use-keypress";
+import { useKeypress } from "../../../hooks";
 import { getNewParam } from "../ListingImageGallery";
 import type { ListingGalleryImage } from "../utils/types";
 import SharedModal from "./SharedModal";
