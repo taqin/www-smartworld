@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, Fragment, useState } from "react";
+import React, { FC, Fragment, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ArrowRightIcon, Squares2X2Icon } from "@heroicons/react/24/outline";
 import CommentListing from "@/components/CommentListing";
@@ -14,6 +14,7 @@ import ButtonSecondary from "@/shared/ButtonSecondary";
 import ButtonClose from "@/shared/ButtonClose";
 import Input from "@/shared/Input";
 import LikeSaveBtns from "@/components/LikeSaveBtns";
+import BookingForm from "@/components/BookingForm";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import StayDatesRangeInput from "../StayDatesRangeInput";
@@ -190,9 +191,77 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
   const thisPathname = usePathname();
   const router = useRouter();
 
+  // Booking form state - moved to component level
+  const [selectedDates, setSelectedDates] = useState<{startDate: Date | null, endDate: Date | null}>({
+    startDate: null,
+    endDate: null
+  });
+  const [selectedGuests, setSelectedGuests] = useState({
+    guestAdults: 2,
+    guestChildren: 0,
+    guestInfants: 0
+  });
+  const [pricing, setPricing] = useState<{
+    nights: number;
+    subtotal: number;
+    serviceFee: number;
+    cleaningFee: number;
+    taxes: number;
+    total: number;
+    breakdown: string;
+  } | null>(null);
+  const [pricingLoading, setPricingLoading] = useState(false);
+
   function closeModalAmenities() {
     setIsOpenModalAmenities(false);
   }
+
+  // Function to calculate pricing
+  const calculatePricing = async (startDate: Date | null, endDate: Date | null, guests: { guestAdults: number; guestChildren: number; guestInfants: number }) => {
+    if (!startDate || !endDate) {
+      setPricing(null);
+      return;
+    }
+
+    setPricingLoading(true);
+    try {
+      const totalGuests = guests.guestAdults + guests.guestChildren + guests.guestInfants;
+      const checkIn = startDate.toISOString().split('T')[0];
+      const checkOut = endDate.toISOString().split('T')[0];
+      
+      const response = await fetch(
+        `/api/listings/${listingData.listingId}/pricing?checkIn=${checkIn}&checkOut=${checkOut}&guests=${totalGuests}`
+      );
+
+      const result = await response.json();
+      
+      if (result.success) {
+        setPricing(result.data);
+      } else {
+        console.error('Pricing calculation failed:', result.error);
+        setPricing(null);
+      }
+    } catch (err) {
+      console.error('Error calculating pricing:', err);
+      setPricing(null);
+    } finally {
+      setPricingLoading(false);
+    }
+  };
+
+  // Effect to recalculate pricing when dates or guests change
+  useEffect(() => {
+    calculatePricing(selectedDates.startDate, selectedDates.endDate, selectedGuests);
+  }, [selectedDates.startDate, selectedDates.endDate, selectedGuests, listingData.listingId]);
+
+  // Handlers for form input changes
+  const handleDatesChange = (dates: { startDate: Date | null; endDate: Date | null }) => {
+    setSelectedDates(dates);
+  };
+
+  const handleGuestsChange = (guests: { guestAdults: number; guestChildren: number; guestInfants: number }) => {
+    setSelectedGuests(guests);
+  };
 
   function openModalAmenities() {
     setIsOpenModalAmenities(true);
@@ -679,6 +748,42 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
   };
 
   const renderSidebar = () => {
+    const handleBookingClick = () => {
+      // Validate that dates are selected
+      if (!selectedDates.startDate || !selectedDates.endDate) {
+        alert('Please select check-in and check-out dates');
+        return;
+      }
+
+      // Prepare booking data to pass to the booking page using actual form values
+      const bookingData = {
+        listingId: listingData.listingId,
+        listingTitle: listingData.basic.title,
+        listingImage: listingData.media.featuredImage,
+        listingAddress: listingData.basic.location.address,
+        checkIn: selectedDates.startDate.toISOString().split('T')[0],
+        checkOut: selectedDates.endDate.toISOString().split('T')[0],
+        guests: selectedGuests,
+        basePrice: listingData.pricing.basePrice,
+        currency: listingData.pricing.currency,
+        priceUnit: listingData.pricing.priceUnit,
+        instantBook: listingData.availability.instantBook,
+        hostName: listingData.host.name,
+        hostId: listingData.host.id
+      };
+
+      // Encode booking data and navigate to booking page
+      const encodedData = encodeURIComponent(JSON.stringify(bookingData));
+      window.location.href = `/booking?data=${encodedData}`;
+    };
+
+    const formatCurrency = (amount: number) => {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      }).format(amount);
+    };
+
     return (
       <div className="listingSectionSidebar__wrap shadow-xl">
         {/* PRICE */}
@@ -694,31 +799,89 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
 
         {/* FORM */}
         <form className="flex flex-col border border-neutral-200 dark:border-neutral-700 rounded-3xl ">
-          <StayDatesRangeInput className="flex-1 z-[11]" />
+          <StayDatesRangeInput 
+            className="flex-1 z-[11]" 
+            onChange={handleDatesChange}
+            defaultStartDate={selectedDates.startDate}
+            defaultEndDate={selectedDates.endDate}
+          />
           <div className="w-full border-b border-neutral-200 dark:border-neutral-700"></div>
-          <GuestsInput className="flex-1" />
+          <GuestsInput 
+            className="flex-1" 
+            onChange={handleGuestsChange}
+            defaultAdults={selectedGuests.guestAdults}
+            defaultChildren={selectedGuests.guestChildren}
+            defaultInfants={selectedGuests.guestInfants}
+          />
         </form>
 
         {/* SUM */}
         <div className="flex flex-col space-y-4">
-          <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
-            <span>{listingData.pricing.totalCalculation.breakdown}</span>
-            <span>${listingData.pricing.totalCalculation.subtotal}</span>
-          </div>
-          <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
-            <span>Service charge</span>
-            <span>${listingData.pricing.totalCalculation.serviceFee}</span>
-          </div>
-          <div className="border-b border-neutral-200 dark:border-neutral-700"></div>
-          <div className="flex justify-between font-semibold">
-            <span>Total</span>
-            <span>${listingData.pricing.totalCalculation.total}</span>
-          </div>
+          {pricingLoading ? (
+            <div className="text-center py-4">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary-600 mx-auto"></div>
+              <p className="text-sm text-neutral-500 mt-2">Calculating pricing...</p>
+            </div>
+          ) : pricing ? (
+            <>
+              <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
+                <span>{pricing.breakdown}</span>
+                <span>{formatCurrency(pricing.subtotal)}</span>
+              </div>
+              {pricing.serviceFee > 0 && (
+                <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
+                  <span>Service charge</span>
+                  <span>{formatCurrency(pricing.serviceFee)}</span>
+                </div>
+              )}
+              {pricing.cleaningFee > 0 && (
+                <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
+                  <span>Cleaning fee</span>
+                  <span>{formatCurrency(pricing.cleaningFee)}</span>
+                </div>
+              )}
+              {pricing.taxes > 0 && (
+                <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
+                  <span>Taxes</span>
+                  <span>{formatCurrency(pricing.taxes)}</span>
+                </div>
+              )}
+              <div className="border-b border-neutral-200 dark:border-neutral-700"></div>
+              <div className="flex justify-between font-semibold">
+                <span>Total</span>
+                <span>{formatCurrency(pricing.total)}</span>
+              </div>
+            </>
+          ) : selectedDates.startDate && selectedDates.endDate ? (
+            <div className="text-center py-4">
+              <p className="text-sm text-neutral-500">Unable to calculate pricing</p>
+            </div>
+          ) : (
+            <div className="flex flex-col space-y-4">
+              <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
+                <span>Select dates to see pricing</span>
+                <span>--</span>
+              </div>
+              <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
+                <span>Service charge</span>
+                <span>--</span>
+              </div>
+              <div className="border-b border-neutral-200 dark:border-neutral-700"></div>
+              <div className="flex justify-between font-semibold">
+                <span>Total</span>
+                <span>--</span>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* SUBMIT */}
-        <ButtonPrimary href={listingData.booking.bookingUrl}>
-          {listingData.booking.instantBookable ? "Reserve" : "Request to Book"}
+        <ButtonPrimary 
+          className="w-full"
+          onClick={handleBookingClick}
+          disabled={!selectedDates.startDate || !selectedDates.endDate || pricingLoading}
+        >
+          {listingData.availability.instantBook ? "Reserve" : "Request to Book"}
         </ButtonPrimary>
       </div>
     );
