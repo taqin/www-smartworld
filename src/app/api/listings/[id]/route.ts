@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { eq, and } from 'drizzle-orm';
+import { db, listings, users, reviews } from '@/lib/db/connection';
 
 // This matches your JSON schema from earlier
 interface ListingDetail {
@@ -122,95 +124,170 @@ export async function GET(
   try {
     const { id } = params;
 
-    // TODO: Replace with actual database query
-    // Mock data that matches your listing detail page requirements
-    const mockListing: ListingDetail = {
-      listingId: id,
-      listingType: 'stay',
+    // Fetch listing with host information from database
+    const listing = await db
+      .select({
+        // Listing fields
+        id: listings.id,
+        title: listings.title,
+        description: listings.description,
+        extendedDescription: listings.extendedDescription,
+        listingType: listings.listingType,
+        category: listings.category,
+        badge: listings.badge,
+        basePrice: listings.basePrice,
+        currency: listings.currency,
+        priceUnit: listings.priceUnit,
+        weekdayRate: listings.weekdayRate,
+        weekendRate: listings.weekendRate,
+        monthlyDiscountPercent: listings.monthlyDiscountPercent,
+        serviceFee: listings.serviceFee,
+        cleaningFee: listings.cleaningFee,
+        taxesPercent: listings.taxesPercent,
+        address: listings.address,
+        fullAddress: listings.fullAddress,
+        latitude: listings.latitude,
+        longitude: listings.longitude,
+        mapEmbedUrl: listings.mapEmbedUrl,
+        maxGuests: listings.maxGuests,
+        bedrooms: listings.bedrooms,
+        beds: listings.beds,
+        bathrooms: listings.bathrooms,
+        propertyType: listings.propertyType,
+        featuredImage: listings.featuredImage,
+        gallery: listings.gallery,
+        amenities: listings.amenities,
+        minimumNights: listings.minimumNights,
+        maximumNights: listings.maximumNights,
+        checkInTime: listings.checkInTime,
+        checkOutTime: listings.checkOutTime,
+        instantBook: listings.instantBook,
+        cancellationType: listings.cancellationType,
+        cancellationDescription: listings.cancellationDescription,
+        houseRules: listings.houseRules,
+        isActive: listings.isActive,
+        views: listings.views,
+        saves: listings.saves,
+        shares: listings.shares,
+        totalReviews: listings.totalReviews,
+        averageRating: listings.averageRating,
+        
+        // Host fields
+        hostId: users.id,
+        hostName: users.name,
+        hostFirstName: users.firstName,
+        hostLastName: users.lastName,
+        hostAvatar: users.avatar,
+        hostIsVerified: users.isVerified,
+        hostJoinedDate: users.joinedDate,
+        hostBio: users.bio,
+        hostResponseRate: users.responseRate,
+        hostResponseTime: users.responseTime,
+        hostTotalListings: users.totalListings,
+        hostAverageRating: users.averageRating,
+        hostIsSuperhost: users.isSuperhost,
+      })
+      .from(listings)
+      .leftJoin(users, eq(listings.hostId, users.id))
+      .where(and(eq(listings.id, id), eq(listings.isActive, true)))
+      .limit(1);
+
+    if (!listing || listing.length === 0) {
+      return NextResponse.json(
+        { success: false, error: 'Listing not found' },
+        { status: 404 }
+      );
+    }
+
+    const listingData = listing[0];
+
+    // Fetch recent reviews for this listing
+    const recentReviews = await db
+      .select({
+        id: reviews.id,
+        rating: reviews.overallRating,
+        comment: reviews.comment,
+        createdAt: reviews.createdAt,
+        reviewerName: users.name,
+        reviewerAvatar: users.avatar,
+      })
+      .from(reviews)
+      .leftJoin(users, eq(reviews.reviewerId, users.id))
+      .where(and(eq(reviews.listingId, id), eq(reviews.isPublic, true)))
+      .orderBy(reviews.createdAt)
+      .limit(10);
+
+    // Transform data to match the expected format
+    const transformedListing: ListingDetail = {
+      listingId: listingData.id,
+      listingType: listingData.listingType as 'stay' | 'experience' | 'car' | 'real-estate',
       basic: {
-        title: "Beach House in Collingwood",
-        badge: "Wooden house",
-        description: "Providing lake views, The Symphony 9 Tam Coc in Ninh Binh provides accommodation, an outdoor swimming pool, a bar, a shared lounge, a garden and barbecue facilities. Complimentary WiFi is provided.",
-        extendedDescription: "There is a private bathroom with bidet in all units, along with a hairdryer and free toiletries. The Symphony 9 Tam Coc offers a terrace. Both a bicycle rental service and a car rental service are available at the accommodation, while cycling can be enjoyed nearby.",
+        title: listingData.title,
+        badge: listingData.badge || '',
+        description: listingData.description,
+        extendedDescription: listingData.extendedDescription || '',
         location: {
-          address: "Tokyo, Japan",
-          fullAddress: "San Diego, CA, United States of America (SAN-San Diego Intl.)",
-          coordinates: { lat: 35.6762, lng: 139.6503 },
-          mapEmbedUrl: "https://www.google.com/maps/embed/v1/place?key=AIzaSyAGVJfZMAKYfZ71nzL_v5i3LjTTWnCYwTY&q=Tokyo,Japan"
+          address: listingData.address,
+          fullAddress: listingData.fullAddress || listingData.address,
+          coordinates: { 
+            lat: listingData.latitude || 0, 
+            lng: listingData.longitude || 0 
+          },
+          mapEmbedUrl: listingData.mapEmbedUrl || ''
         },
-        category: "Wooden house",
+        category: listingData.category || '',
         isLiked: false,
         isSaved: false
       },
       media: {
-        featuredImage: "https://images.pexels.com/photos/6129967/pexels-photo-6129967.jpeg",
-        gallery: [
-          {
-            id: 0,
-            url: "https://images.pexels.com/photos/6129967/pexels-photo-6129967.jpeg",
-            alt: "Main bedroom view",
-            caption: "Spacious master bedroom with ocean view"
-          },
-          {
-            id: 1,
-            url: "https://images.pexels.com/photos/7163619/pexels-photo-7163619.jpeg",
-            alt: "Living room",
-            caption: "Comfortable living area"
-          }
-        ]
+        featuredImage: listingData.featuredImage || '',
+        gallery: listingData.gallery || []
       },
       pricing: {
-        basePrice: 119,
-        currency: "USD",
-        priceUnit: "night",
+        basePrice: parseFloat(listingData.basePrice),
+        currency: listingData.currency,
+        priceUnit: listingData.priceUnit,
         rates: {
-          weekdayRate: 199,
-          weekendRate: 219,
-          monthlyDiscountPercent: 8.34
+          weekdayRate: parseFloat(listingData.weekdayRate || '0'),
+          weekendRate: parseFloat(listingData.weekendRate || '0'),
+          monthlyDiscountPercent: listingData.monthlyDiscountPercent || 0
         },
         fees: {
-          serviceFee: 0,
-          cleaningFee: 25,
-          taxes: 15
+          serviceFee: parseFloat(listingData.serviceFee || '0'),
+          cleaningFee: parseFloat(listingData.cleaningFee || '0'),
+          taxes: listingData.taxesPercent || 0
         },
-        minimumNights: 1,
-        maximumNights: 90
+        minimumNights: listingData.minimumNights || 1,
+        maximumNights: listingData.maximumNights || 90
       },
       accommodation: {
-        maxGuests: 6,
-        bedrooms: 2,
-        beds: 6,
-        bathrooms: 3,
-        propertyType: "House",
-        amenities: [
-          { id: "wifi", name: "Free WiFi", icon: "la-wifi", category: "connectivity" },
-          { id: "parking", name: "Free parking", icon: "la-car", category: "accessibility" },
-          { id: "pool", name: "Swimming pool", icon: "la-swimming-pool", category: "recreation" },
-          { id: "kitchen", name: "Kitchen", icon: "la-utensils", category: "cooking" },
-          { id: "ac", name: "Air conditioning", icon: "la-snowflake", category: "climate" },
-          { id: "tv", name: "TV", icon: "la-tv", category: "entertainment" }
-        ],
-        totalAmenities: 32
+        maxGuests: listingData.maxGuests,
+        bedrooms: listingData.bedrooms || 0,
+        beds: listingData.beds || 0,
+        bathrooms: listingData.bathrooms || 0,
+        propertyType: listingData.propertyType || '',
+        amenities: listingData.amenities || [],
+        totalAmenities: (listingData.amenities || []).length
       },
       host: {
-        id: "host-123",
-        name: "Kevin Francis",
-        firstName: "Kevin",
-        lastName: "Francis",
-        avatar: "https://example.com/avatar.jpg",
-        isVerified: true,
-        joinedDate: "March 2016",
-        profileUrl: "/author",
-        responseRate: 100,
-        responseTime: "within a few hours",
-        totalListings: 12,
-        rating: 4.8,
-        bio: "Providing lake views, The Symphony 9 Tam Coc in Ninh Binh provides accommodation, an outdoor swimming pool, a bar, a shared lounge, a garden and barbecue facilities..."
+        id: listingData.hostId || '',
+        name: listingData.hostName || '',
+        firstName: listingData.hostFirstName || '',
+        lastName: listingData.hostLastName || '',
+        avatar: listingData.hostAvatar || '',
+        isVerified: listingData.hostIsVerified || false,
+        joinedDate: listingData.hostJoinedDate?.toISOString().split('T')[0] || '',
+        profileUrl: `/host/${listingData.hostId}`,
+        responseRate: listingData.hostResponseRate || 0,
+        responseTime: listingData.hostResponseTime || '',
+        totalListings: listingData.hostTotalListings || 0,
+        rating: listingData.hostAverageRating || 0,
+        bio: listingData.hostBio || ''
       },
       reviews: {
-        totalReviews: 23,
-        averageRating: 4.8,
-        ratingBreakdown: { "5": 18, "4": 3, "3": 1, "2": 1, "1": 0 },
+        totalReviews: listingData.totalReviews || 0,
+        averageRating: listingData.averageRating || 0,
+        ratingBreakdown: calculateRatingBreakdown(recentReviews),
         reviewCategories: {
           cleanliness: 4.9,
           accuracy: 4.8,
@@ -219,39 +296,34 @@ export async function GET(
           location: 4.8,
           value: 4.7
         },
-        recentReviews: [
-          {
-            id: "review-1",
-            guestName: "Sarah Johnson",
-            rating: 5,
-            date: "2024-01-15",
-            comment: "Amazing stay! The house was exactly as described and Kevin was a wonderful host."
-          }
-        ]
+        recentReviews: recentReviews.map(review => ({
+          id: review.id,
+          guestName: review.reviewerName || 'Anonymous',
+          rating: review.rating,
+          date: review.createdAt?.toISOString().split('T')[0] || '',
+          comment: review.comment || ''
+        }))
       },
       availability: {
         calendar: {
-          availableDates: ["2024-02-01", "2024-02-02", "2024-02-03"],
-          blockedDates: ["2024-02-04", "2024-02-05"],
-          minimumStay: 1,
-          maximumStay: 90,
-          checkInTime: "08:00 - 12:00",
-          checkOutTime: "14:00 - 16:00"
+          availableDates: [], // Would need separate query
+          blockedDates: [],
+          minimumStay: listingData.minimumNights || 1,
+          maximumStay: listingData.maximumNights || 90,
+          checkInTime: listingData.checkInTime || '',
+          checkOutTime: listingData.checkOutTime || ''
         },
-        instantBook: true
+        instantBook: listingData.instantBook || false
       },
       policies: {
         cancellation: {
-          type: "flexible",
-          description: "Refund 50% of the booking value when customers cancel the room within 48 hours after successful booking and 14 days before the check-in time."
+          type: listingData.cancellationType || 'flexible',
+          description: listingData.cancellationDescription || ''
         },
-        houseRules: {
-          checkIn: "08:00 am - 12:00 am",
-          checkOut: "02:00 pm - 04:00 pm",
-          specialRules: [
-            "Ban and I will work together to keep the landscape and environment green and clean by not littering, not using stimulants and respecting people around.",
-            "Do not sing karaoke past 11:30"
-          ],
+        houseRules: listingData.houseRules || {
+          checkIn: listingData.checkInTime || '',
+          checkOut: listingData.checkOutTime || '',
+          specialRules: [],
           smokingAllowed: false,
           petsAllowed: false,
           partiesAllowed: false
@@ -259,17 +331,18 @@ export async function GET(
       }
     };
 
-    // In real implementation, check if listing exists
-    if (!mockListing) {
-      return NextResponse.json(
-        { success: false, error: 'Listing not found' },
-        { status: 404 }
-      );
-    }
+    // Increment view count
+    await db
+      .update(listings)
+      .set({ 
+        views: (listingData.views || 0) + 1,
+        updatedAt: new Date()
+      })
+      .where(eq(listings.id, id));
 
     return NextResponse.json({
       success: true,
-      data: mockListing
+      data: transformedListing
     });
 
   } catch (error) {
@@ -334,4 +407,16 @@ export async function DELETE(
       { status: 500 }
     );
   }
+}
+
+// Helper function to calculate rating breakdown
+function calculateRatingBreakdown(reviews: any[]) {
+  const breakdown = { "5": 0, "4": 0, "3": 0, "2": 0, "1": 0 };
+  reviews.forEach(review => {
+    const rating = review.rating.toString();
+    if (breakdown[rating as keyof typeof breakdown] !== undefined) {
+      breakdown[rating as keyof typeof breakdown]++;
+    }
+  });
+  return breakdown;
 }

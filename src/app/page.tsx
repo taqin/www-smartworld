@@ -5,7 +5,7 @@ import { TaxonomyType } from "@/data/types";
 import SectionSliderNewCategories from "@/components/SectionSliderNewCategories";
 import SectionOurFeatures from "@/components/SectionOurFeatures";
 import BackgroundSection from "@/components/BackgroundSection";
-import SectionGridFeaturePlaces from "@/components/SectionGridFeaturePlaces";
+import SectionGridFeaturePlacesDynamic from "@/components/SectionGridFeaturePlacesDynamic";
 import SectionHowItWork from "@/components/SectionHowItWork";
 import SectionSubscribe2 from "@/components/SectionSubscribe2";
 import SectionGridAuthorBox from "@/components/SectionGridAuthorBox";
@@ -161,7 +161,7 @@ function PageHome() {
 
         <SectionOurFeatures />
 
-        <SectionGridFeaturePlaces cardType="card2" />
+        <SectionGridFeaturePlacesDynamic cardType="card2" limit={8} />
 
         <SectionHowItWork />
 

@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { eq, and, gte, lte, ilike, desc } from 'drizzle-orm';
+import { db, listings, users } from '@/lib/db/connection';
 
 // Types (can be moved to shared types file)
 interface ListingQuery {
@@ -12,6 +14,7 @@ interface ListingQuery {
   amenities?: string[];
   page?: number;
   limit?: number;
+  featured?: boolean;
 }
 
 interface ListingResponse {
@@ -22,6 +25,7 @@ interface ListingResponse {
     limit: number;
     total: number;
     pages: number;
+    hasMore?: boolean;
   };
   filters?: {
     locations: string[];
@@ -46,82 +50,135 @@ export async function GET(request: NextRequest) {
       amenities: searchParams.get('amenities')?.split(',') || [],
       page: searchParams.get('page') ? parseInt(searchParams.get('page')!) : 1,
       limit: searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : 20,
+      featured: searchParams.get('featured') === 'true',
     };
 
-    // TODO: Replace with actual database query
-    // This is mock data matching your existing structure
-    const mockListings = [
-      {
-        id: "stay-1",
-        title: "Beach House in Collingwood",
-        type: "stay",
-        featuredImage: "https://images.pexels.com/photos/6129967/pexels-photo-6129967.jpeg",
-        price: 119,
-        location: {
-          address: "Tokyo, Japan",
-          coordinates: { lat: 35.6762, lng: 139.6503 }
-        },
-        rating: 4.8,
-        reviewCount: 23,
-        maxGuests: 6,
-        bedrooms: 2,
-        bathrooms: 3,
-        amenities: ["wifi", "parking", "pool", "kitchen"],
-        availability: {
-          available: true,
-          instantBook: true
-        },
-        host: {
-          id: "host-123",
-          name: "Kevin Francis",
-          isVerified: true
-        }
-      }
-      // Add more mock data...
-    ];
+    // Build database query with filters
+    const conditions = [eq(listings.isActive, true)];
 
-    // Apply filters (in real implementation, this would be SQL/MongoDB queries)
-    let filteredListings = mockListings;
-
+    // Apply filters
     if (query.type) {
-      filteredListings = filteredListings.filter(listing => listing.type === query.type);
+      conditions.push(eq(listings.listingType, query.type));
     }
 
     if (query.location) {
-      filteredListings = filteredListings.filter(listing => 
-        listing.location.address.toLowerCase().includes(query.location!.toLowerCase())
-      );
+      conditions.push(ilike(listings.address, `%${query.location}%`));
     }
 
     if (query.guests) {
-      filteredListings = filteredListings.filter(listing => 
-        listing.maxGuests >= query.guests!
-      );
+      conditions.push(gte(listings.maxGuests, query.guests));
     }
 
-    if (query.priceMin || query.priceMax) {
-      filteredListings = filteredListings.filter(listing => {
-        if (query.priceMin && listing.price < query.priceMin) return false;
-        if (query.priceMax && listing.price > query.priceMax) return false;
-        return true;
-      });
+    if (query.priceMin) {
+      conditions.push(gte(listings.basePrice, query.priceMin.toString()));
     }
 
-    // Pagination
+    if (query.priceMax) {
+      conditions.push(lte(listings.basePrice, query.priceMax.toString()));
+    }
+
+    if (query.featured) {
+      conditions.push(eq(listings.isFeatured, true));
+    }
+
+    // Fetch listings from database
+    const dbListings = await db
+      .select({
+        // Listing fields
+        id: listings.id,
+        title: listings.title,
+        listingType: listings.listingType,
+        featuredImage: listings.featuredImage,
+        gallery: listings.gallery,
+        basePrice: listings.basePrice,
+        currency: listings.currency,
+        address: listings.address,
+        fullAddress: listings.fullAddress,
+        latitude: listings.latitude,
+        longitude: listings.longitude,
+        maxGuests: listings.maxGuests,
+        bedrooms: listings.bedrooms,
+        bathrooms: listings.bathrooms,
+        amenities: listings.amenities,
+        averageRating: listings.averageRating,
+        totalReviews: listings.totalReviews,
+        instantBook: listings.instantBook,
+        isFeatured: listings.isFeatured,
+        views: listings.views,
+        createdAt: listings.createdAt,
+        
+        // Host fields
+        hostId: users.id,
+        hostName: users.name,
+        hostAvatar: users.avatar,
+        hostIsVerified: users.isVerified,
+      })
+      .from(listings)
+      .leftJoin(users, eq(listings.hostId, users.id))
+      .where(and(...conditions))
+      .orderBy(
+        query.featured ? desc(listings.isFeatured) : desc(listings.createdAt),
+        desc(listings.views)
+      )
+      .limit((query.limit || 20) + 1) // +1 to check if there are more results
+      .offset(((query.page || 1) - 1) * (query.limit || 20));
+
+    // Transform database results to API format
+    const transformedListings = dbListings.slice(0, query.limit || 20).map(listing => ({
+      id: listing.id,
+      title: listing.title,
+      type: listing.listingType,
+      featuredImage: listing.featuredImage || '',
+      gallery: listing.gallery || [],
+      price: {
+        amount: parseFloat(listing.basePrice),
+        currency: listing.currency,
+        unit: 'night'
+      },
+      location: {
+        address: listing.address,
+        fullAddress: listing.fullAddress || listing.address,
+        coordinates: {
+          lat: listing.latitude || 0,
+          lng: listing.longitude || 0
+        }
+      },
+      rating: listing.averageRating || 0,
+      reviewCount: listing.totalReviews || 0,
+      maxGuests: listing.maxGuests,
+      bedrooms: listing.bedrooms || 0,
+      bathrooms: listing.bathrooms || 0,
+      amenities: listing.amenities || [],
+      availability: {
+        available: true, // Would need availability table query
+        instantBook: listing.instantBook || false
+      },
+      host: {
+        id: listing.hostId || '',
+        name: listing.hostName || '',
+        avatar: listing.hostAvatar || '',
+        isVerified: listing.hostIsVerified || false
+      },
+      isFeatured: listing.isFeatured || false,
+      views: listing.views || 0,
+      createdAt: listing.createdAt?.toISOString() || ''
+    }));
+
+    // Pagination info
     const page = query.page || 1;
     const limit = query.limit || 20;
-    const startIndex = (page - 1) * limit;
-    const endIndex = startIndex + limit;
-    const paginatedListings = filteredListings.slice(startIndex, endIndex);
+    const hasMore = dbListings.length > limit;
+    const total = transformedListings.length; // This is approximate, would need COUNT query for exact
 
     const response: ListingResponse = {
       success: true,
-      data: paginatedListings,
+      data: transformedListings,
       pagination: {
         page,
         limit,
-        total: filteredListings.length,
-        pages: Math.ceil(filteredListings.length / limit)
+        total: total,
+        pages: Math.ceil(total / limit),
+        hasMore: hasMore
       },
       filters: {
         locations: ["Tokyo, Japan", "Kyoto, Japan", "Osaka, Japan"],
