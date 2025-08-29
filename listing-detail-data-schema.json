@@ -1,0 +1,271 @@
+{
+  "listingId": "string",
+  "listingType": "stay | experience | car | real-estate",
+  "basic": {
+    "title": "Beach House in Collingwood",
+    "badge": "Wooden house",
+    "description": "Providing lake views, The Symphony 9 Tam Coc in Ninh Binh provides accommodation, an outdoor swimming pool, a bar, a shared lounge, a garden and barbecue facilities. Complimentary WiFi is provided.",
+    "extendedDescription": "There is a private bathroom with bidet in all units, along with a hairdryer and free toiletries. The Symphony 9 Tam Coc offers a terrace. Both a bicycle rental service and a car rental service are available at the accommodation, while cycling can be enjoyed nearby.",
+    "location": {
+      "address": "Tokyo, Japan",
+      "fullAddress": "San Diego, CA, United States of America (SAN-San Diego Intl.)",
+      "coordinates": {
+        "lat": 35.6762,
+        "lng": 139.6503
+      },
+      "mapEmbedUrl": "https://www.google.com/maps/embed/v1/place?key=API_KEY&q=location"
+    },
+    "category": "Wooden house",
+    "isLiked": false,
+    "isSaved": false
+  },
+  "media": {
+    "featuredImage": "https://images.pexels.com/photos/6129967/pexels-photo-6129967.jpeg",
+    "gallery": [
+      {
+        "id": 0,
+        "url": "https://images.pexels.com/photos/6129967/pexels-photo-6129967.jpeg",
+        "alt": "Main bedroom view",
+        "caption": "Spacious master bedroom with ocean view"
+      },
+      {
+        "id": 1,
+        "url": "https://images.pexels.com/photos/7163619/pexels-photo-7163619.jpeg",
+        "alt": "Living room",
+        "caption": "Comfortable living area"
+      }
+    ]
+  },
+  "pricing": {
+    "basePrice": 119,
+    "currency": "USD",
+    "priceUnit": "night",
+    "rates": {
+      "weekdayRate": 199,
+      "weekendRate": 219,
+      "monthlyDiscountPercent": 8.34
+    },
+    "fees": {
+      "serviceFee": 0,
+      "cleaningFee": 25,
+      "taxes": 15
+    },
+    "minimumNights": 1,
+    "maximumNights": 90,
+    "totalCalculation": {
+      "subtotal": 357,
+      "serviceFee": 0,
+      "total": 357,
+      "breakdown": "$119 x 3 nights"
+    }
+  },
+  "accommodation": {
+    "maxGuests": 6,
+    "bedrooms": 2,
+    "beds": 6,
+    "bathrooms": 3,
+    "propertyType": "House",
+    "amenities": [
+      {
+        "id": "wifi",
+        "name": "Free WiFi",
+        "icon": "la-wifi",
+        "category": "connectivity"
+      },
+      {
+        "id": "parking",
+        "name": "Free parking",
+        "icon": "la-car",
+        "category": "accessibility"
+      },
+      {
+        "id": "pool",
+        "name": "Swimming pool",
+        "icon": "la-swimming-pool",
+        "category": "recreation"
+      },
+      {
+        "id": "kitchen",
+        "name": "Kitchen",
+        "icon": "la-utensils",
+        "category": "cooking"
+      },
+      {
+        "id": "ac",
+        "name": "Air conditioning",
+        "icon": "la-snowflake",
+        "category": "climate"
+      },
+      {
+        "id": "tv",
+        "name": "TV",
+        "icon": "la-tv",
+        "category": "entertainment"
+      }
+    ],
+    "totalAmenities": 32
+  },
+  "host": {
+    "id": "host-123",
+    "name": "Kevin Francis",
+    "firstName": "Kevin",
+    "lastName": "Francis",
+    "avatar": "https://example.com/avatar.jpg",
+    "isVerified": true,
+    "joinedDate": "March 2016",
+    "profileUrl": "/author",
+    "responseRate": 100,
+    "responseTime": "within a few hours",
+    "totalListings": 12,
+    "rating": 4.8,
+    "bio": "Providing lake views, The Symphony 9 Tam Coc in Ninh Binh provides accommodation, an outdoor swimming pool, a bar, a shared lounge, a garden and barbecue facilities...",
+    "languages": ["English", "Japanese"],
+    "isIdentityVerified": true,
+    "isSuperhost": true
+  },
+  "reviews": {
+    "totalReviews": 23,
+    "averageRating": 4.8,
+    "ratingBreakdown": {
+      "5": 18,
+      "4": 3,
+      "3": 1,
+      "2": 1,
+      "1": 0
+    },
+    "reviewCategories": {
+      "cleanliness": 4.9,
+      "accuracy": 4.8,
+      "checkIn": 4.9,
+      "communication": 4.9,
+      "location": 4.8,
+      "value": 4.7
+    },
+    "recentReviews": [
+      {
+        "id": "review-1",
+        "guestName": "Sarah Johnson",
+        "guestAvatar": "https://example.com/guest1.jpg",
+        "rating": 5,
+        "date": "2024-01-15",
+        "comment": "Amazing stay! The house was exactly as described and Kevin was a wonderful host.",
+        "hostReply": {
+          "date": "2024-01-16",
+          "comment": "Thank you Sarah! We're so glad you enjoyed your stay."
+        }
+      }
+    ],
+    "canReview": true,
+    "userReview": null
+  },
+  "availability": {
+    "calendar": {
+      "availableDates": ["2024-02-01", "2024-02-02", "2024-02-03"],
+      "blockedDates": ["2024-02-04", "2024-02-05"],
+      "minimumStay": 1,
+      "maximumStay": 90,
+      "checkInTime": "08:00 - 12:00",
+      "checkOutTime": "14:00 - 16:00"
+    },
+    "instantBook": true,
+    "advanceBooking": 365,
+    "preparationTime": 0
+  },
+  "policies": {
+    "cancellation": {
+      "type": "flexible",
+      "description": "Refund 50% of the booking value when customers cancel the room within 48 hours after successful booking and 14 days before the check-in time. Then, cancel the room 14 days before the check-in time, get a 50% refund of the total amount paid (minus the service fee)."
+    },
+    "houseRules": {
+      "checkIn": "08:00 am - 12:00 am",
+      "checkOut": "02:00 pm - 04:00 pm",
+      "specialRules": [
+        "Ban and I will work together to keep the landscape and environment green and clean by not littering, not using stimulants and respecting people around.",
+        "Do not sing karaoke past 11:30"
+      ],
+      "smokingAllowed": false,
+      "petsAllowed": false,
+      "partiesAllowed": false,
+      "additionalRules": []
+    },
+    "safetyFeatures": [
+      "Smoke detector",
+      "Carbon monoxide detector",
+      "Fire extinguisher",
+      "First aid kit"
+    ]
+  },
+  "booking": {
+    "availableForBooking": true,
+    "instantBookable": true,
+    "requiresApproval": false,
+    "bookingUrl": "/checkout",
+    "contactHost": "/contact-host",
+    "guestRequirements": {
+      "governmentId": true,
+      "confirmEmail": true,
+      "confirmPhone": true
+    }
+  },
+  "seo": {
+    "metaTitle": "Beach House in Collingwood - Luxury Stay in Tokyo",
+    "metaDescription": "Experience luxury beachfront living in this stunning wooden house in Collingwood. Features 6 beds, 3 baths, pool, and amazing ocean views.",
+    "keywords": ["beach house", "tokyo", "vacation rental", "luxury accommodation"],
+    "canonicalUrl": "/listing-stay-detail",
+    "ogImage": "https://images.pexels.com/photos/6129967/pexels-photo-6129967.jpeg"
+  },
+  "legal": {
+    "registrationNumber": "REG-12345",
+    "businessLicense": "BL-67890",
+    "taxInfo": {
+      "taxesIncluded": false,
+      "taxRate": 12.5,
+      "taxDescription": "City occupancy tax"
+    }
+  },
+  "nearby": {
+    "attractions": [
+      {
+        "name": "Tokyo Tower",
+        "distance": "2.5 km",
+        "type": "landmark"
+      },
+      {
+        "name": "Shibuya Crossing",
+        "distance": "3.2 km",
+        "type": "attraction"
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "Sushi Zen",
+        "distance": "0.5 km",
+        "rating": 4.7,
+        "cuisine": "Japanese"
+      }
+    ],
+    "transportation": [
+      {
+        "name": "Tokyo Station",
+        "distance": "4.0 km",
+        "type": "train"
+      },
+      {
+        "name": "Haneda Airport",
+        "distance": "15 km",
+        "type": "airport"
+      }
+    ]
+  },
+  "additionalInfo": {
+    "lastUpdated": "2024-01-20T10:30:00Z",
+    "createdDate": "2023-01-15T08:00:00Z",
+    "status": "active",
+    "featured": false,
+    "trending": true,
+    "newListing": false,
+    "views": 1247,
+    "saves": 89,
+    "shares": 23
+  }
+}

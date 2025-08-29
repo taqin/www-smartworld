@@ -1,0 +1,111 @@
+Page Title,URL Path,Category,Parent Category,Description
+Home,/,Main,Root,Homepage - main landing page
+Packages,/packages,Main,Root,Main packages overview page
+Experience-Based Packages,/packages/experience-based,Packages,Packages,Experience-based travel packages category
+Adventure Tours,/packages/adventure,Packages,Experience-Based,Adventure travel experiences
+Trekking & Hiking,/packages/adventure/trekking,Packages,Adventure Tours,Trekking and hiking adventures
+Water Sports,/packages/adventure/water-sports,Packages,Adventure Tours,Water sports activities
+Mountain Climbing,/packages/adventure/mountain-climbing,Packages,Adventure Tours,Mountain climbing expeditions
+Wildlife Safari,/packages/adventure/wildlife-safari,Packages,Adventure Tours,Wildlife safari experiences
+Extreme Sports,/packages/adventure/extreme-sports,Packages,Adventure Tours,Extreme sports adventures
+Cultural Experiences,/packages/cultural,Packages,Experience-Based,Cultural travel experiences
+Heritage Tours,/packages/cultural/heritage-tours,Packages,Cultural Experiences,Heritage site tours
+Food & Wine Tours,/packages/cultural/food-wine,Packages,Cultural Experiences,Culinary and wine experiences
+Festival Experiences,/packages/cultural/festivals,Packages,Cultural Experiences,Festival and celebration tours
+Art & History Tours,/packages/cultural/art-history,Packages,Cultural Experiences,Art and history focused tours
+Local Immersion,/packages/cultural/local-immersion,Packages,Cultural Experiences,Local culture immersion experiences
+Luxury Travel,/packages/luxury,Packages,Experience-Based,Luxury travel experiences
+5-Star Escapes,/packages/luxury/five-star,Packages,Luxury Travel,Five-star luxury accommodations
+Private Jet Tours,/packages/luxury/private-jets,Packages,Luxury Travel,Private jet travel packages
+Luxury Yacht Cruises,/packages/luxury/yacht-cruises,Packages,Luxury Travel,Luxury yacht and cruise experiences
+Exclusive Resorts,/packages/luxury/exclusive-resorts,Packages,Luxury Travel,Exclusive resort stays
+Butler Service Tours,/packages/luxury/butler-service,Packages,Luxury Travel,Tours with personal butler service
+Family Packages,/packages/family,Packages,Experience-Based,Family-friendly travel packages
+Theme Park Adventures,/packages/family/theme-parks,Packages,Family Packages,Theme park vacation packages
+Family Beach Resorts,/packages/family/beach-resorts,Packages,Family Packages,Beach resort packages for families
+Educational Tours,/packages/family/educational,Packages,Family Packages,Educational travel experiences
+All-Inclusive Family,/packages/family/all-inclusive,Packages,Family Packages,All-inclusive family vacation packages
+Multi-Generation Tours,/packages/family/multi-generation,Packages,Family Packages,Multi-generational family trips
+Honeymoon Packages,/packages/honeymoon,Packages,Experience-Based,Romantic honeymoon packages (NEW)
+Romantic Islands,/packages/honeymoon/romantic-islands,Packages,Honeymoon Packages,Romantic island getaways
+European Romance,/packages/honeymoon/european-romance,Packages,Honeymoon Packages,Romantic European destinations
+Exotic Destinations,/packages/honeymoon/exotic-destinations,Packages,Honeymoon Packages,Exotic honeymoon locations
+Luxury Suite Escapes,/packages/honeymoon/luxury-suites,Packages,Honeymoon Packages,Luxury suite accommodations
+Adventure Romance,/packages/honeymoon/adventure-romance,Packages,Honeymoon Packages,Adventure-focused romantic trips
+Wellness Retreats,/packages/wellness,Packages,Experience-Based,Health and wellness retreats
+Spa Retreats,/packages/wellness/spa-retreats,Packages,Wellness Retreats,Spa and relaxation retreats
+Yoga & Meditation,/packages/wellness/yoga-meditation,Packages,Wellness Retreats,Yoga and meditation programs
+Detox Programs,/packages/wellness/detox-programs,Packages,Wellness Retreats,Detox and cleansing programs
+Thermal Springs,/packages/wellness/thermal-springs,Packages,Wellness Retreats,Thermal spring wellness experiences
+Mindfulness Journeys,/packages/wellness/mindfulness,Packages,Wellness Retreats,Mindfulness and spiritual journeys
+Location-Based Packages,/packages/location-based,Packages,Packages,Location-based travel packages category
+Asia Tours,/packages/asia,Packages,Location-Based,Asian destination packages
+Europe Tours,/packages/europe,Packages,Location-Based,European destination packages
+Africa Safari,/packages/africa,Packages,Location-Based,African safari packages
+Americas Explorer,/packages/americas,Packages,Location-Based,North and South America packages
+Middle East Wonders,/packages/middle-east,Packages,Location-Based,Middle Eastern destination packages
+Australia & New Zealand,/packages/oceania,Packages,Location-Based,Australia and New Zealand packages
+Arctic Expeditions,/packages/arctic,Packages,Location-Based,Arctic exploration packages
+Caribbean Islands,/packages/caribbean,Packages,Location-Based,Caribbean island packages
+Hidden Gems,/packages/hidden-gems,Packages,Packages,Hidden gem destinations category
+Off the Beaten Path,/packages/hidden-gems/off-beaten-path,Packages,Hidden Gems,Unique off-the-beaten-path destinations
+Local Secrets,/packages/hidden-gems/local-secrets,Packages,Hidden Gems,Local insider secret destinations
+Undiscovered Destinations,/packages/hidden-gems/undiscovered,Packages,Hidden Gems,Undiscovered travel destinations
+Boutique Experiences,/packages/hidden-gems/boutique-experiences,Packages,Hidden Gems,Boutique and exclusive experiences
+Insider Access Tours,/packages/hidden-gems/insider-access,Packages,Hidden Gems,Exclusive insider access tours
+Remote Locations,/packages/hidden-gems/remote-locations,Packages,Hidden Gems,Remote and isolated destination packages
+Special Offers,/offers,Offers,Packages,Special travel offers and deals (NEW)
+Early Bird Discounts,/offers/early-bird,Offers,Special Offers,Early booking discounts (NEW)
+Last Minute Deals,/offers/last-minute,Offers,Special Offers,Last-minute travel deals
+Group Discounts,/offers/group-discounts,Offers,Special Offers,Group booking discounts
+Seasonal Specials,/offers/seasonal,Offers,Special Offers,Seasonal travel specials
+Loyalty Rewards,/offers/loyalty,Offers,Special Offers,Customer loyalty rewards program
+Student Discounts,/offers/student,Offers,Special Offers,Student travel discounts
+Destinations,/destinations,Main,Root,Travel destinations overview
+Japan Tours,/destinations/japan,Destinations,Asia Adventures,Japan travel packages
+Thailand Packages,/destinations/thailand,Destinations,Asia Adventures,Thailand vacation packages
+Vietnam Explorer,/destinations/vietnam,Destinations,Asia Adventures,Vietnam travel experiences
+Bali Paradise,/destinations/bali,Destinations,Asia Adventures,Bali island packages
+Singapore City Break,/destinations/singapore,Destinations,Asia Adventures,Singapore city tour packages
+Italian Romance,/destinations/italy,Destinations,European Escapes,Romantic Italy packages
+French Riviera,/destinations/france,Destinations,European Escapes,French Riviera experiences
+Spanish Delights,/destinations/spain,Destinations,European Escapes,Spain travel packages
+Greek Islands,/destinations/greece,Destinations,European Escapes,Greek island packages
+Nordic Adventures,/destinations/norway,Destinations,European Escapes,Norway and Nordic experiences
+Kenya Wildlife,/destinations/kenya,Destinations,African Safari,Kenya wildlife safari packages
+Tanzania Safari,/destinations/tanzania,Destinations,African Safari,Tanzania safari experiences
+South Africa Tours,/destinations/south-africa,Destinations,African Safari,South African tour packages
+Botswana Explorer,/destinations/botswana,Destinations,African Safari,Botswana exploration packages
+Namibian Wonders,/destinations/namibia,Destinations,African Safari,Namibian desert and wildlife tours
+Machu Picchu Tours,/destinations/peru,Destinations,Americas Journey,Peru and Machu Picchu packages
+Costa Rica Adventure,/destinations/costa-rica,Destinations,Americas Journey,Costa Rica adventure packages
+Canadian Rockies,/destinations/canada,Destinations,Americas Journey,Canadian Rockies experiences
+Chilean Patagonia,/destinations/chile,Destinations,Americas Journey,Chilean Patagonia exploration
+USA National Parks,/destinations/usa,Destinations,Americas Journey,USA national parks tours
+Services,/services,Main,Root,Travel services overview
+Travel Planning,/services/planning,Services,Services,Travel planning services
+Free Consultation,/services/planning/consultation,Services,Travel Planning,Free travel consultation service
+Custom Itinerary,/services/planning/custom-itinerary,Services,Travel Planning,Custom itinerary planning
+Group Travel Planning,/services/planning/group-planning,Services,Travel Planning,Group travel planning services
+Corporate Travel,/services/planning/corporate,Services,Travel Planning,Corporate travel management
+Visa Assistance,/services/visa-assistance,Services,Services,Visa application assistance
+Travel Insurance,/services/travel-insurance,Services,Services,Travel insurance services
+Airport Transfers,/services/airport-transfers,Services,Services,Airport transfer services
+Travel Concierge,/services/concierge,Services,Services,Personal travel concierge services
+24/7 Emergency Support,/services/emergency-support,Services,Services,Round-the-clock emergency travel support
+About Us,/about,Main,Root,About company overview
+Our Story,/about/our-story,About,About Us,Company history and story
+Meet Our Team,/about/team,About,About Us,Team member profiles
+Sustainable Travel,/about/sustainability,About,About Us,Sustainability initiatives and practices
+Awards & Recognition,/about/awards,About,About Us,Company awards and recognition
+Careers,/about/careers,About,About Us,Career opportunities and job listings
+Contact Us,/contact,Main,Root,Contact information and form
+Travel Blog,/blog,Main,Root,Travel blog and articles
+Login,/login,Account,Root,User login page
+Signup,/signup,Account,Root,User registration page
+Account,/account,Account,Root,User account dashboard
+Checkout,/checkout,Booking,Root,Booking checkout page
+Payment Complete,/pay-done,Booking,Root,Payment confirmation page
+Author Profile,/author,Profile,Root,Travel expert/author profiles
+Subscription,/subscription,Account,Root,Subscription management
+
