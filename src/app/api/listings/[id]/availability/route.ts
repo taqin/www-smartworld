@@ -30,11 +30,11 @@ interface AvailabilityResponse {
 // GET /api/listings/[id]/availability - Check availability for specific dates
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { searchParams } = new URL(request.url);
-    const { id } = params;
+    const { id } = await params;
 
     const query: AvailabilityQuery = {
       from: searchParams.get('from') || undefined,

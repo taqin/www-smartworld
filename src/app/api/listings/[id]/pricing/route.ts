@@ -63,11 +63,11 @@ function calculateNightsBreakdown(checkIn: Date, checkOut: Date) {
 // GET /api/listings/[id]/pricing - Calculate pricing for specific dates
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { searchParams } = new URL(request.url);
-    const { id } = params;
+    const { id } = await params;
 
     const query: PricingQuery = {
       checkIn: searchParams.get('checkIn') || '',

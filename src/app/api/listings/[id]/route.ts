@@ -119,10 +119,10 @@ interface ListingDetail {
 // GET /api/listings/[id] - Get specific listing details
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     // Fetch listing with host information from database
     const listing = await db
@@ -357,10 +357,10 @@ export async function GET(
 // PUT /api/listings/[id] - Update listing (for hosts)
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
     
     // TODO: Add authentication middleware
@@ -386,10 +386,10 @@ export async function PUT(
 // DELETE /api/listings/[id] - Delete listing (for hosts/admin)
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     
     // TODO: Add authentication middleware
     // TODO: Verify host ownership or admin role

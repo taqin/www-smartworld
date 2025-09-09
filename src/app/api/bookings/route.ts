@@ -173,9 +173,11 @@ export async function POST(request: NextRequest) {
       checkIn: new Date(body.checkIn),
       checkOut: new Date(body.checkOut),
       totalGuests: body.guests.adults + body.guests.children + body.guests.infants,
-      adults: body.guests.adults,
-      children: body.guests.children,
-      infants: body.guests.infants,
+      adultsCount: body.guests.adults,
+      childrenCount: body.guests.children,
+      infantsCount: body.guests.infants,
+      basePrice: body.pricing.basePrice.toString(),
+      nights: body.pricing.nights,
       subtotal: body.pricing.subtotal.toString(),
       serviceFee: body.pricing.serviceFee.toString(),
       cleaningFee: body.pricing.cleaningFee.toString(),
@@ -330,8 +332,16 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // Build where conditions
+    const whereConditions = [eq(bookings.guestId, userId)];
+    
+    // Apply status filter if provided
+    if (status) {
+      whereConditions.push(eq(bookings.status, status as any));
+    }
+    
     // Query database for user's bookings
-    let query = db
+    const query = db
       .select({
         // Booking fields
         id: bookings.id,
@@ -342,16 +352,15 @@ export async function GET(request: NextRequest) {
         checkIn: bookings.checkIn,
         checkOut: bookings.checkOut,
         totalGuests: bookings.totalGuests,
-        adults: bookings.adults,
-        children: bookings.children,
-        infants: bookings.infants,
+        adults: bookings.adultsCount,
+        children: bookings.childrenCount,
+        infants: bookings.infantsCount,
         subtotal: bookings.subtotal,
         serviceFee: bookings.serviceFee,
         cleaningFee: bookings.cleaningFee,
         taxes: bookings.taxes,
         totalAmount: bookings.totalAmount,
-        currency: bookings.currency,
-        guestFirstName: bookings.guestFirstName,
+                guestFirstName: bookings.guestFirstName,
         guestLastName: bookings.guestLastName,
         guestEmail: bookings.guestEmail,
         guestPhone: bookings.guestPhone,
@@ -373,15 +382,7 @@ export async function GET(request: NextRequest) {
       .from(bookings)
       .leftJoin(listings, eq(bookings.listingId, listings.id))
       .leftJoin(users, eq(bookings.hostId, users.id))
-      .where(eq(bookings.guestId, userId));
-
-    // Apply status filter if provided
-    if (status) {
-      query = query.where(and(
-        eq(bookings.guestId, userId),
-        eq(bookings.status, status as any)
-      ));
-    }
+      .where(and(...whereConditions));
 
     const dbBookings = await query.orderBy(bookings.createdAt);
 
@@ -396,8 +397,8 @@ export async function GET(request: NextRequest) {
       checkOut: booking.checkOut.toISOString().split('T')[0],
       guests: {
         adults: booking.adults,
-        children: booking.children,
-        infants: booking.infants,
+        children: booking.children || 0,
+        infants: booking.infants || 0,
         total: booking.totalGuests
       },
       pricing: {

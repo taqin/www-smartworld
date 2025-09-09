@@ -5,12 +5,13 @@ import ListingStayDetailClient from './ListingStayDetailClient';
 import { Metadata } from 'next';
 
 interface PageProps {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const listing = await getListingData(params.id);
+  const { id } = await params;
+  const listing = await getListingData(id);
   
   if (!listing) {
     return {
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: listing.title,
       description: listing.description,
-      images: [listing.featuredImage].filter(Boolean),
+      images: listing.featuredImage ? [{ url: listing.featuredImage }] : [],
     },
   };
 }
@@ -149,9 +150,10 @@ async function getListingReviews(listingId: string) {
 
 // Server Component - fetches data and renders client component
 export default async function ListingStayDetailPage({ params }: PageProps) {
+  const { id } = await params;
   const [listingData, reviewsData] = await Promise.all([
-    getListingData(params.id),
-    getListingReviews(params.id)
+    getListingData(id),
+    getListingReviews(id)
   ]);
 
   if (!listingData) {
@@ -187,7 +189,7 @@ export default async function ListingStayDetailPage({ params }: PageProps) {
     pricing: {
       basePrice: parseFloat(listingData.basePrice),
       currency: listingData.currency,
-      priceUnit: listingData.priceUnit,
+      priceUnit: listingData.priceUnit || '',
       rates: {
         weekdayRate: parseFloat(listingData.weekdayRate || '0'),
         weekendRate: parseFloat(listingData.weekendRate || '0'),
@@ -269,7 +271,7 @@ export default async function ListingStayDetailPage({ params }: PageProps) {
         type: listingData.cancellationType || 'flexible',
         description: listingData.cancellationDescription || '',
       },
-      houseRules: listingData.houseRules || {
+      houseRules: {
         checkIn: listingData.checkInTime || '',
         checkOut: listingData.checkOutTime || '',
         specialRules: [],
@@ -300,7 +302,7 @@ export default async function ListingStayDetailPage({ params }: PageProps) {
     seo: {
       metaTitle: `${listingData.title} - SmartWorld Travel`,
       metaDescription: listingData.description.substring(0, 160),
-      keywords: [listingData.category, listingData.propertyType, listingData.address].filter(Boolean),
+      keywords: [listingData.category, listingData.propertyType, listingData.address].filter(Boolean) as string[],
       canonicalUrl: `/listing/${listingData.id}`,
       ogImage: listingData.featuredImage || '',
     },
@@ -323,7 +325,7 @@ export default async function ListingStayDetailPage({ params }: PageProps) {
       views: (listingData.views || 0) + 1,
       updatedAt: new Date()
     })
-    .where(eq(listings.id, params.id))
+    .where(eq(listings.id, id))
     .catch(console.error);
 
   return <ListingStayDetailClient listingData={transformedData} />;
@@ -341,8 +343,17 @@ function calculateRatingBreakdown(reviews: any[]) {
   return breakdown;
 }
 
-function calculateReviewCategories(reviews: any[]) {
-  if (reviews.length === 0) return {};
+function calculateReviewCategories(reviews: any[]): Record<string, number> {
+  if (reviews.length === 0) {
+    return {
+      cleanliness: 0,
+      accuracy: 0,
+      checkIn: 0,
+      communication: 0,
+      location: 0,
+      value: 0,
+    };
+  }
   
   const totals = {
     cleanliness: 0,
@@ -366,7 +377,16 @@ function calculateReviewCategories(reviews: any[]) {
     }
   });
 
-  if (count === 0) return {};
+  if (count === 0) {
+    return {
+      cleanliness: 0,
+      accuracy: 0,
+      checkIn: 0,
+      communication: 0,
+      location: 0,
+      value: 0,
+    };
+  }
 
   return {
     cleanliness: totals.cleanliness / count,
