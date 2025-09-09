@@ -44,9 +44,9 @@ export const TRAVEL_AGENCY_FOOTER_MENUS: WidgetFooterMenu[] = [
     menus: [
       { href: "/help/faq", label: "FAQ" },
       { href: "/help/booking-guide", label: "Booking Guide" },
-      { href: "/help/cancellation", label: "Cancellation Policy" },
+      { href: "/help/cancellation-policy", label: "Cancellation Policy" },
       { href: "/help/travel-tips", label: "Travel Tips" },
-      { href: "/help/safety", label: "Travel Safety" },
+      { href: "/help/travel-safety", label: "Travel Safety" },
       { href: "/help/customer-service", label: "Customer Service" },
     ],
   },
