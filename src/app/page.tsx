@@ -152,14 +152,14 @@ function PageHome() {
       {/* GLASSMOPHIN */}
       <BgGlassmorphism />
 
-      <div className="container relative space-y-24 mb-24 lg:space-y-28 lg:mb-28">
+      <div className="container relative space-y-10 mb-24 lg:space-y-10 lg:mb-28">
         {/* SECTION HERO */}
-        <SectionHero className="pt-10 lg:pt-16 lg:pb-16" />
+        <SectionHero className="pt-10 lg:pt-16 " />
 
         {/* SECTION 1 */}
-        <SectionSliderNewCategories categories={DEMO_CATS} />
+        {/* <SectionSliderNewCategories categories={DEMO_CATS} /> */}
 
-        <SectionOurFeatures />
+        {/* <SectionOurFeatures /> */}
 
         <SectionGridFeaturePlacesDynamic cardType="card2" limit={8} />
 
@@ -177,26 +177,26 @@ function PageHome() {
           />
         </div>
 
-        <SectionSubscribe2 />
+        {/* <SectionSubscribe2 /> */}
 
-        <div className="relative py-16">
+        {/* <div className="relative py-16">
           <BackgroundSection className="bg-orange-50 dark:bg-black dark:bg-opacity-20 " />
           <SectionGridAuthorBox />
-        </div>
+        </div> */}
 
-        <SectionGridCategoryBox />
+        {/* <SectionGridCategoryBox /> */}
 
-        <div className="relative py-16">
+        {/* <div className="relative py-16">
           <BackgroundSection />
           <SectionBecomeAnAuthor />
-        </div>
+        </div> */}
 
-        <SectionSliderNewCategories
+        {/* <SectionSliderNewCategories
           heading="Explore by types of stays"
           subHeading="Explore houses based on 10 types of stays"
           categoryCardType="card5"
           itemPerRow={5}
-        />
+        /> */}
 
         <SectionVideos />
 

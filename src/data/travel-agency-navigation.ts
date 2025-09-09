@@ -264,11 +264,6 @@ export const TRAVEL_AGENCY_NAVIGATION: NavItemType[] = [
     id: ncNanoId(),
     href: "/contact",
     name: "Contact Us"
-  },
-  {
-    id: ncNanoId(),
-    href: "/blog",
-    name: "Travel Blog"
   }
 ];
 

@@ -157,7 +157,7 @@ const SectionGridFeaturePlacesDynamic: FC<SectionGridFeaturePlacesDynamicProps> 
   // If no listings found, show empty state
   if (stayListings.length === 0) {
     return (
-      <div className="nc-SectionGridFeaturePlaces relative">
+      <div className="nc-SectionGridFeaturePlaces relative mt-0">
         <HeaderFilter
           tabActive={"New York"}
           subHeading={subHeading}
@@ -174,7 +174,7 @@ const SectionGridFeaturePlacesDynamic: FC<SectionGridFeaturePlacesDynamicProps> 
   }
 
   return (
-    <div className="nc-SectionGridFeaturePlaces relative">
+    <div className="nc-SectionGridFeaturePlaces relative mt-0">
       <HeaderFilter
         tabActive={"New York"}
         subHeading={subHeading}
