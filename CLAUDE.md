@@ -22,6 +22,62 @@ npm run db:studio       # Open Drizzle Studio
 npm run db:seed         # Seed database with initial data
 ```
 
+## Production Deployment (Neon Database)
+
+### Environment Setup
+
+1. **Production Environment Variables**:
+   ```bash
+   # Copy the production template
+   cp .env.production.example .env.production
+   
+   # Update with your actual Neon database URL
+   DATABASE_URL="postgresql://neondb_owner:your_password@your-neon-host/neondb?sslmode=require&channel_binding=require"
+   
+   # Update with production email credentials
+   RESEND_API_KEY="your_production_resend_api_key"
+   ```
+
+2. **Database Migration to Neon**:
+   ```bash
+   # Set your Neon database URL
+   export DATABASE_URL="postgresql://neondb_owner:your_password@your-neon-host/neondb?sslmode=require&channel_binding=require"
+   
+   # Generate migrations
+   npm run db:generate
+   
+   # Push schema to Neon (requires confirmation)
+   npm run db:migrate
+   
+   # Seed database with test data
+   npm run db:seed
+   ```
+
+3. **Production Build**:
+   ```bash
+   # Build for production
+   npm run build
+   
+   # Start production server
+   npm start
+   ```
+
+### Neon Database Configuration
+
+The application is configured to work with Neon PostgreSQL serverless database:
+
+- **Connection**: Uses `@neondatabase/serverless` driver
+- **SSL**: Automatically enabled for remote connections
+- **Migrations**: Drizzle ORM handles schema changes
+- **Seeding**: Initial data populated via seed script
+
+### Deployment Notes
+
+- The application automatically detects local vs remote database connections
+- SSL is enabled for all non-localhost connections
+- Database schema is managed through Drizzle ORM migrations
+- Environment variables should be properly set in production
+
 ## Architecture & Structure
 
 ### Next.js App Router Structure
