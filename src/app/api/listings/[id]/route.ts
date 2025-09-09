@@ -246,7 +246,7 @@ export async function GET(
       pricing: {
         basePrice: parseFloat(listingData.basePrice),
         currency: listingData.currency,
-        priceUnit: listingData.priceUnit,
+        priceUnit: listingData.priceUnit || '',
         rates: {
           weekdayRate: parseFloat(listingData.weekdayRate || '0'),
           weekendRate: parseFloat(listingData.weekendRate || '0'),

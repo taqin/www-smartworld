@@ -211,18 +211,18 @@ export async function GET(
             or(
               // New booking starts during existing booking
               and(
-                gte(checkInDate, bookings.checkIn),
-                lte(checkInDate, bookings.checkOut)
+                gte(bookings.checkIn, checkInDate),
+                lte(bookings.checkIn, checkOutDate)
               ),
               // New booking ends during existing booking
               and(
-                gte(checkOutDate, bookings.checkIn),
-                lte(checkOutDate, bookings.checkOut)
+                gte(bookings.checkOut, checkInDate),
+                lte(bookings.checkOut, checkOutDate)
               ),
               // New booking completely contains existing booking
               and(
-                lte(checkInDate, bookings.checkIn),
-                gte(checkOutDate, bookings.checkOut)
+                lte(bookings.checkIn, checkInDate),
+                gte(bookings.checkOut, checkOutDate)
               )
             )
           )
@@ -305,7 +305,7 @@ export async function GET(
       success: true,
       data: {
         available: true,
-        blockedDates: [...new Set(blockedDates)], // Remove duplicates
+        blockedDates: Array.from(new Set(blockedDates)), // Remove duplicates
         availablePeriods: [], // Would calculate available periods between bookings
         minimumStay: listingData.minimumNights || 1,
         maximumStay: listingData.maximumNights || 90,

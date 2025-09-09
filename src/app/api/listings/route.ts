@@ -4,7 +4,7 @@ import { db, listings, users } from '@/lib/db/connection';
 
 // Types (can be moved to shared types file)
 interface ListingQuery {
-  type?: 'stay' | 'experience' | 'car' | 'real-estate';
+  type?: 'stay' | 'experience' | 'car' | 'real_estate';
   location?: string;
   guests?: number;
   dateFrom?: string;

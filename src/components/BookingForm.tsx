@@ -332,9 +332,10 @@ const BookingForm: React.FC<BookingFormProps> = ({ listingId, listingData, rende
               </label>
               <GuestsInput
                 className="nc-hero-field-padding"
-                defaultValue={guests}
+                defaultAdults={guests.guestAdults}
+                defaultChildren={guests.guestChildren}
+                defaultInfants={guests.guestInfants}
                 onChange={(data) => setGuests(data)}
-                maxGuests={listingData.accommodation.maxGuests}
               />
             </div>
 
@@ -693,9 +694,10 @@ const BookingForm: React.FC<BookingFormProps> = ({ listingId, listingData, rende
                 </label>
                 <GuestsInput
                   className="nc-hero-field-padding"
-                  defaultValue={guests}
+                  defaultAdults={guests.guestAdults}
+                  defaultChildren={guests.guestChildren}
+                  defaultInfants={guests.guestInfants}
                   onChange={(data) => setGuests(data)}
-                  maxGuests={listingData.accommodation.maxGuests}
                 />
               </div>
 

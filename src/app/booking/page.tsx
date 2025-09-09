@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ButtonPrimary from '@/shared/ButtonPrimary';
 import ButtonSecondary from '@/shared/ButtonSecondary';
@@ -28,6 +28,7 @@ interface BookingData {
 }
 
 interface PricingData {
+  basePrice: number;
   subtotal: number;
   serviceFee: number;
   cleaningFee: number;
@@ -38,6 +39,14 @@ interface PricingData {
 }
 
 export default function BookingPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BookingContent />
+    </Suspense>
+  );
+}
+
+function BookingContent() {
   const searchParams = useSearchParams();
   const [bookingData, setBookingData] = useState<BookingData | null>(null);
   const [pricing, setPricing] = useState<PricingData | null>(null);
@@ -115,7 +124,7 @@ export default function BookingPage() {
           infants: bookingData.guests.guestInfants,
         },
         pricing: {
-          basePrice: pricing.pricePerNight || bookingData.basePrice,
+          basePrice: pricing.basePrice || bookingData.basePrice,
           nights: pricing.nights,
           subtotal: pricing.subtotal,
           serviceFee: pricing.serviceFee,

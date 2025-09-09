@@ -94,7 +94,7 @@ async function getFeaturedListings(limit: number = 8): Promise<StayDataType[]> {
       
       // Additional fields
       commentCount: listing.totalReviews || 0,
-      viewdCount: listing.views || 0,
+      viewCount: listing.views || 0,
       date: listing.createdAt?.toISOString() || new Date().toISOString(),
       like: false, // Would need user context to determine
       saleOff: null, // Could be calculated from pricing rules
@@ -180,7 +180,6 @@ const SectionGridFeaturePlacesDynamic: FC<SectionGridFeaturePlacesDynamicProps> 
         subHeading={subHeading}
         tabs={tabs}
         heading={heading}
-        headingIsCenter={headingIsCenter}
       />
       <div
         className={`grid gap-6 md:gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ${gridClass}`}

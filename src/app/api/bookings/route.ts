@@ -407,22 +407,22 @@ export async function GET(request: NextRequest) {
           (booking.checkOut.getTime() - booking.checkIn.getTime()) / (1000 * 60 * 60 * 24)
         ),
         subtotal: parseFloat(booking.subtotal),
-        serviceFee: parseFloat(booking.serviceFee),
-        cleaningFee: parseFloat(booking.cleaningFee),
-        taxes: parseFloat(booking.taxes),
+        serviceFee: parseFloat(booking.serviceFee || '0'),
+        cleaningFee: parseFloat(booking.cleaningFee || '0'),
+        taxes: parseFloat(booking.taxes || '0'),
         total: parseFloat(booking.totalAmount)
       },
       guestInfo: {
         firstName: booking.guestFirstName,
         lastName: booking.guestLastName,
         email: booking.guestEmail,
-        phone: booking.guestPhone
+        phone: booking.guestPhone || ''
       },
       paymentInfo: {
         method: booking.paymentMethod,
         // transactionId and paidAt would come from payment processor
       },
-      specialRequests: booking.specialRequests,
+      specialRequests: booking.specialRequests || undefined,
       createdAt: booking.createdAt.toISOString(),
       updatedAt: booking.updatedAt.toISOString(),
       listing: {

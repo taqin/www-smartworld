@@ -70,7 +70,7 @@ async function fetchFeaturedListings(limit: number = 8): Promise<StayDataType[]>
       
       // Additional fields
       commentCount: listing.reviews?.totalReviews || listing.totalReviews || 0,
-      viewdCount: listing.additionalInfo?.views || listing.views || 0,
+      viewCount: listing.additionalInfo?.views || listing.views || 0,
       date: listing.additionalInfo?.createdDate || listing.createdAt || new Date().toISOString(),
       like: false,
       saleOff: null,
@@ -208,7 +208,6 @@ const SectionGridFeaturePlacesClient: FC<SectionGridFeaturePlacesClientProps> = 
         subHeading={subHeading}
         tabs={tabs}
         heading={heading}
-        headingIsCenter={headingIsCenter}
       />
       
       {renderContent()}
