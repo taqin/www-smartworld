@@ -83,7 +83,7 @@ const PageHelpFaq: FC<PageHelpFaqProps> = ({}) => {
                 icon: "🚗",
                 title: "Transportation",
                 description: "Airport transfers and local transportation options",
-                questions: "Do you provide airport transfers?", "What vehicles are available?", "How far in advance should I book?"
+                questions: ["Do you provide airport transfers?", "What vehicles are available?", "How far in advance should I book?"]
               },
               {
                 icon: "❌",
