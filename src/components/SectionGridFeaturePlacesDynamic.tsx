@@ -49,7 +49,7 @@ async function getFeaturedListings(limit: number = 8): Promise<StayDataType[]> {
     return featuredListings.map((listing): StayDataType => ({
       id: listing.id,
       title: listing.title,
-      href: `/listing-stay-detail/${listing.id}` as any, // Dynamic URL
+      href: `/listing/${listing.id}` as any, // Dynamic URL
       address: listing.address,
       price: `$${listing.basePrice}`,
       maxGuests: listing.maxGuests,

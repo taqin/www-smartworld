@@ -301,7 +301,7 @@ export default async function ListingStayDetailPage({ params }: PageProps) {
       metaTitle: `${listingData.title} - SmartWorld Travel`,
       metaDescription: listingData.description.substring(0, 160),
       keywords: [listingData.category, listingData.propertyType, listingData.address].filter(Boolean),
-      canonicalUrl: `/listing-stay-detail/${listingData.id}`,
+      canonicalUrl: `/listing/${listingData.id}`,
       ogImage: listingData.featuredImage || '',
     },
     additionalInfo: {

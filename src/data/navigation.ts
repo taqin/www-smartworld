@@ -197,7 +197,7 @@ export const NAVIGATION_DEMO: NavItemType[] = [
             href: "/listing-stay-map",
             name: "Stay page (map)",
           },
-          { id: ncNanoId(), href: "/listing-stay-detail", name: "Stay Detail" },
+          { id: ncNanoId(), href: "/listing", name: "Stay Detail" },
         ],
       },
 
@@ -305,7 +305,7 @@ export const NAVIGATION_DEMO_2: NavItemType[] = [
         href: "/listing-stay-map",
         name: "Stay listings (map)",
       },
-      { id: ncNanoId(), href: "/listing-stay-detail", name: "Stay detail" },
+      { id: ncNanoId(), href: "/listing", name: "Stay detail" },
 
       //
       {

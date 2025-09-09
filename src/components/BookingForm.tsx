@@ -7,8 +7,8 @@ import ButtonPrimary from '@/shared/ButtonPrimary';
 import ButtonSecondary from '@/shared/ButtonSecondary';
 import ButtonClose from '@/shared/ButtonClose';
 import Input from '@/shared/Input';
-import StayDatesRangeInput from '@/app/(listing-detail)/listing-stay-detail/StayDatesRangeInput';
-import GuestsInput from '@/app/(listing-detail)/listing-stay-detail/GuestsInput';
+import StayDatesRangeInput from '@/app/(listing-detail)/listing/StayDatesRangeInput';
+import GuestsInput from '@/app/(listing-detail)/listing/GuestsInput';
 
 interface BookingFormProps {
   listingId: string;
