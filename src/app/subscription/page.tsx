@@ -18,7 +18,7 @@ const pricings: PricingItem[] = [
   {
     isPopular: false,
     name: "Starter",
-    pricing: "$5",
+    pricing: "RM5",
     per: "/mo",
     features: ["Automated Reporting", "Faster Processing", "Customizations"],
     desc: ` Literally you probably haven't heard of them jean shorts.`,
@@ -26,7 +26,7 @@ const pricings: PricingItem[] = [
   {
     isPopular: true,
     name: "Basic",
-    pricing: "$15",
+    pricing: "RM15",
     per: "/mo",
     features: [
       "Everything in Starter",
@@ -39,7 +39,7 @@ const pricings: PricingItem[] = [
   {
     isPopular: false,
     name: "Plus",
-    pricing: "$25",
+    pricing: "RM25",
     per: "/mo",
     features: [
       "Everything in Basic",

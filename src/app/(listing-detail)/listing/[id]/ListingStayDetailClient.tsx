@@ -468,11 +468,11 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
           <div className="text-sm sm:text-base text-neutral-6000 dark:text-neutral-300 -mb-4">
             <div className="p-4 bg-neutral-100 dark:bg-neutral-800 flex justify-between items-center space-x-4 rounded-lg">
               <span>Weekday Rate</span>
-              <span>${listingData.pricing.rates.weekdayRate}</span>
+              <span>RM{listingData.pricing.rates.weekdayRate}</span>
             </div>
             <div className="p-4 flex justify-between items-center space-x-4 rounded-lg">
               <span>Weekend Rate</span>
-              <span>${listingData.pricing.rates.weekendRate}</span>
+              <span>RM{listingData.pricing.rates.weekendRate}</span>
             </div>
             {listingData.pricing.rates.monthlyDiscountPercent > 0 && (
               <div className="p-4 bg-neutral-100 dark:bg-neutral-800 flex justify-between items-center space-x-4 rounded-lg">
@@ -778,9 +778,9 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
     };
 
     const formatCurrency = (amount: number) => {
-      return new Intl.NumberFormat('en-US', {
+      return new Intl.NumberFormat('en-MY', {
         style: 'currency',
-        currency: 'USD',
+        currency: 'MYR',
       }).format(amount);
     };
 
@@ -789,7 +789,7 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
         {/* PRICE */}
         <div className="flex justify-between">
           <span className="text-3xl font-semibold">
-            ${listingData.pricing.basePrice}
+            RM{listingData.pricing.basePrice}
             <span className="ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400">
               /{listingData.pricing.priceUnit}
             </span>
@@ -888,7 +888,7 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
   };
 
   return (
-    <div className="nc-ListingStayDetailPage">
+    <div className="nc-ListingStayDetailPage mt-10">
       {/*  HEADER */}
       <header className="rounded-md sm:rounded-xl">
         <div className="relative grid grid-cols-3 sm:grid-cols-4 gap-1 sm:gap-2">

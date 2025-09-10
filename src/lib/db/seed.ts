@@ -8,6 +8,7 @@ dotenv.config();
 
 import { db } from './connection';
 import { users, listings, bookings, reviews, availability } from './schema';
+import { generateSlug } from '@/lib/utils/slug';
 
 async function main() {
   console.log('🌱 Starting database seed...');
@@ -68,7 +69,7 @@ async function main() {
 
     // Seed Listings
     console.log('🏠 Seeding listings...');
-    const [listing1, listing2] = await db.insert(listings).values([
+    const [listing1, listing2, listing3, listing4] = await db.insert(listings).values([
       {
         hostId: host1.id,
         title: 'Beach House in Collingwood',
@@ -78,7 +79,7 @@ async function main() {
         category: 'House',
         badge: 'Wooden house',
         basePrice: '119.00',
-        currency: 'USD',
+        currency: 'MYR',
         priceUnit: 'night',
         weekdayRate: '199.00',
         weekendRate: '219.00',
@@ -148,6 +149,7 @@ async function main() {
         metaTitle: 'Beach House in Collingwood - Luxury Stay in Tokyo',
         metaDescription: 'Experience luxury beachfront living in this stunning wooden house in Collingwood.',
         keywords: ['beach house', 'tokyo', 'vacation rental', 'luxury accommodation'],
+        url: generateSlug('Beach House in Collingwood'),
       },
       {
         hostId: host2.id,
@@ -158,7 +160,7 @@ async function main() {
         category: 'Apartment',
         badge: 'City center',
         basePrice: '89.00',
-        currency: 'USD',
+        currency: 'MYR',
         priceUnit: 'night',
         weekdayRate: '89.00',
         weekendRate: '109.00',
@@ -204,6 +206,137 @@ async function main() {
         shares: 8,
         totalReviews: 15,
         averageRating: 4.6,
+        url: generateSlug('Modern Apartment in Kyoto Center'),
+      },
+      {
+        hostId: host1.id,
+        title: 'Luxury Villa in Bali',
+        description: 'Stunning private villa with infinity pool and ocean views. Perfect for families and groups seeking luxury accommodation.',
+        extendedDescription: 'This luxurious villa features modern Balinese architecture, private infinity pool, and breathtaking ocean views. Includes daily housekeeping and private chef service.',
+        listingType: 'stay',
+        category: 'Villa',
+        badge: 'Luxury',
+        basePrice: '250.00',
+        currency: 'MYR',
+        priceUnit: 'night',
+        weekdayRate: '250.00',
+        weekendRate: '299.00',
+        monthlyDiscountPercent: 20.0,
+        serviceFee: '25.00',
+        cleaningFee: '50.00',
+        taxesPercent: 10.0,
+        address: 'Bali, Indonesia',
+        fullAddress: 'Seminyak, Bali, Indonesia',
+        latitude: -8.6705,
+        longitude: 115.2126,
+        maxGuests: 8,
+        bedrooms: 4,
+        beds: 6,
+        bathrooms: 3,
+        propertyType: 'Villa',
+        featuredImage: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg',
+        gallery: [
+          {
+            id: 0,
+            url: 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg',
+            alt: 'Villa infinity pool',
+            caption: 'Infinity pool with ocean view'
+          },
+          {
+            id: 1,
+            url: 'https://images.pexels.com/photos/1579739/pexels-photo-1579739.jpeg',
+            alt: 'Villa living room',
+            caption: 'Spacious living area'
+          }
+        ],
+        amenities: [
+          { id: 'wifi', name: 'Free WiFi', icon: 'la-wifi', category: 'connectivity' },
+          { id: 'pool', name: 'Private Pool', icon: 'la-swimming-pool', category: 'recreation' },
+          { id: 'kitchen', name: 'Full Kitchen', icon: 'la-utensils', category: 'cooking' },
+          { id: 'ac', name: 'Air Conditioning', icon: 'la-snowflake', category: 'climate' },
+          { id: 'tv', name: 'Smart TV', icon: 'la-tv', category: 'entertainment' },
+          { id: 'parking', name: 'Free Parking', icon: 'la-car', category: 'accessibility' }
+        ],
+        minimumNights: 2,
+        maximumNights: 30,
+        checkInTime: '14:00 - 18:00',
+        checkOutTime: '11:00 - 12:00',
+        instantBook: true,
+        cancellationType: 'flexible',
+        isActive: true,
+        isFeatured: true,
+        isTrending: true,
+        views: 892,
+        saves: 156,
+        shares: 34,
+        totalReviews: 28,
+        averageRating: 4.9,
+        url: generateSlug('Luxury Villa in Bali'),
+      },
+      {
+        hostId: host2.id,
+        title: 'Cozy Mountain Cabin',
+        description: 'Perfect getaway in the mountains with hot tub and fireplace. Ideal for romantic getaways and small groups.',
+        extendedDescription: 'Charming mountain cabin surrounded by pine forests. Features hot tub, fireplace, and stunning mountain views. Perfect for winter skiing or summer hiking.',
+        listingType: 'stay',
+        category: 'Cabin',
+        badge: 'Mountain View',
+        basePrice: '150.00',
+        currency: 'MYR',
+        priceUnit: 'night',
+        weekdayRate: '150.00',
+        weekendRate: '189.00',
+        monthlyDiscountPercent: 25.0,
+        serviceFee: '15.00',
+        cleaningFee: '35.00',
+        taxesPercent: 8.0,
+        address: 'Aspen, Colorado',
+        fullAddress: 'Aspen, Colorado, USA',
+        latitude: 39.1911,
+        longitude: -106.8175,
+        maxGuests: 6,
+        bedrooms: 2,
+        beds: 4,
+        bathrooms: 2,
+        propertyType: 'Cabin',
+        featuredImage: 'https://images.pexels.com/photos/1642125/pexels-photo-1642125.jpeg',
+        gallery: [
+          {
+            id: 0,
+            url: 'https://images.pexels.com/photos/1642125/pexels-photo-1642125.jpeg',
+            alt: 'Mountain cabin exterior',
+            caption: 'Cozy cabin in winter'
+          },
+          {
+            id: 1,
+            url: 'https://images.pexels.com/photos/371589/pexels-photo-371589.jpeg',
+            alt: 'Cabin interior',
+            caption: 'Warm interior with fireplace'
+          }
+        ],
+        amenities: [
+          { id: 'wifi', name: 'Free WiFi', icon: 'la-wifi', category: 'connectivity' },
+          { id: 'kitchen', name: 'Kitchen', icon: 'la-utensils', category: 'cooking' },
+          { id: 'fireplace', name: 'Fireplace', icon: 'la-fire', category: 'comfort' },
+          { id: 'hottub', name: 'Hot Tub', icon: 'la-hot-tub', category: 'recreation' },
+          { id: 'tv', name: 'TV', icon: 'la-tv', category: 'entertainment' },
+          { id: 'parking', name: 'Free Parking', icon: 'la-car', category: 'accessibility' }
+        ],
+        minimumNights: 2,
+        maximumNights: 14,
+        checkInTime: '16:00 - 20:00',
+        checkOutTime: '10:00 - 11:00',
+        instantBook: false,
+        cancellationType: 'moderate',
+        isActive: true,
+        isFeatured: false,
+        isTrending: true,
+        views: 678,
+        saves: 89,
+        shares: 23,
+        totalReviews: 19,
+        averageRating: 4.7,
+        url: generateSlug('Cozy Mountain Cabin'),
       }
     ]).returning();
 
@@ -232,6 +365,22 @@ async function main() {
         date,
         isAvailable: Math.random() > 0.15, // 85% available
         price: Math.random() > 0.15 ? '89.00' : null,
+        minimumStay: 2,
+      });
+      
+      availabilityData.push({
+        listingId: listing3.id,
+        date,
+        isAvailable: Math.random() > 0.1, // 90% available
+        price: Math.random() > 0.1 ? '250.00' : null,
+        minimumStay: 2,
+      });
+      
+      availabilityData.push({
+        listingId: listing4.id,
+        date,
+        isAvailable: Math.random() > 0.2, // 80% available
+        price: Math.random() > 0.2 ? '150.00' : null,
         minimumStay: 2,
       });
     }
@@ -315,7 +464,7 @@ async function main() {
     console.log(`
 📊 Seeded data:
 - Users: 3 (2 hosts, 1 guest)
-- Listings: 2 (1 featured beach house, 1 city apartment)
+- Listings: 4 (1 beach house, 1 apartment, 1 luxury villa, 1 mountain cabin)
 - Availability: ${availabilityData.length} records (90 days for each listing)
 - Bookings: 1 confirmed booking
 - Reviews: 2 reviews

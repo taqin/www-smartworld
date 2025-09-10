@@ -369,7 +369,7 @@ const ListingCarDetailPage: FC<ListingCarDetailPageProps> = ({}) => {
         {/* PRICE */}
         <div className="flex justify-between">
           <span className="text-3xl font-semibold">
-            $19
+            RM19
             <span className="ml-1 text-base font-normal text-neutral-500 dark:text-neutral-400">
               /day
             </span>
@@ -385,14 +385,14 @@ const ListingCarDetailPage: FC<ListingCarDetailPageProps> = ({}) => {
         {/* SUM */}
         <div className="flex flex-col space-y-4 ">
           <div className="flex justify-between text-neutral-6000 dark:text-neutral-300">
-            <span>$19 x 3 day</span>
-            <span>$57</span>
+            <span>RM19 x 3 day</span>
+            <span>RM57</span>
           </div>
 
           <div className="border-b border-neutral-200 dark:border-neutral-700"></div>
           <div className="flex justify-between font-semibold">
             <span>Total</span>
-            <span>$199</span>
+            <span>RM199</span>
           </div>
         </div>
 

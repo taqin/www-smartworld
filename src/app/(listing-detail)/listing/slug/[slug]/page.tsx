@@ -1,17 +1,17 @@
 import { notFound } from 'next/navigation';
 import { eq, and } from 'drizzle-orm';
 import { db, listings, users, reviews } from '@/lib/db/connection';
-import ListingStayDetailClient from './ListingStayDetailClient';
+import ListingStayDetailClient from '../../[id]/ListingStayDetailClient';
 import { Metadata } from 'next';
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { id } = await params;
-  const listing = await getListingData(id);
+  const { slug } = await params;
+  const listing = await getListingDataBySlug(slug);
   
   if (!listing) {
     return {
@@ -31,14 +31,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-// Fetch listing data from database
-async function getListingData(id: string) {
+// Fetch listing data from database by slug
+async function getListingDataBySlug(slug: string) {
   try {
     const listing = await db
       .select({
         // Listing fields
         id: listings.id,
         title: listings.title,
+        url: listings.url,
         description: listings.description,
         extendedDescription: listings.extendedDescription,
         listingType: listings.listingType,
@@ -103,7 +104,7 @@ async function getListingData(id: string) {
       })
       .from(listings)
       .leftJoin(users, eq(listings.hostId, users.id))
-      .where(and(eq(listings.id, id), eq(listings.isActive, true)))
+      .where(and(eq(listings.url, slug), eq(listings.isActive, true)))
       .limit(1);
 
     if (!listing || listing.length === 0) {
@@ -112,7 +113,7 @@ async function getListingData(id: string) {
 
     return listing[0];
   } catch (error) {
-    console.error('Error fetching listing:', error);
+    console.error('Error fetching listing by slug:', error);
     return null;
   }
 }
@@ -149,11 +150,11 @@ async function getListingReviews(listingId: string) {
 }
 
 // Server Component - fetches data and renders client component
-export default async function ListingStayDetailPage({ params }: PageProps) {
-  const { id } = await params;
+export default async function ListingStayDetailPageBySlug({ params }: PageProps) {
+  const { slug } = await params;
   const [listingData, reviewsData] = await Promise.all([
-    getListingData(id),
-    getListingReviews(id)
+    getListingDataBySlug(slug),
+    getListingReviewsBySlug(slug)
   ]);
 
   if (!listingData) {
@@ -303,7 +304,7 @@ export default async function ListingStayDetailPage({ params }: PageProps) {
       metaTitle: `${listingData.title} - SmartWorld Travel`,
       metaDescription: listingData.description.substring(0, 160),
       keywords: [listingData.category, listingData.propertyType, listingData.address].filter(Boolean) as string[],
-      canonicalUrl: `/listing/${listingData.id}`,
+      canonicalUrl: `/listing/${listingData.url}`,
       ogImage: listingData.featuredImage || '',
     },
     additionalInfo: {
@@ -325,10 +326,54 @@ export default async function ListingStayDetailPage({ params }: PageProps) {
       views: (listingData.views || 0) + 1,
       updatedAt: new Date()
     })
-    .where(eq(listings.id, id))
+    .where(eq(listings.id, listingData.id))
     .catch(console.error);
 
   return <ListingStayDetailClient listingData={transformedData} />;
+}
+
+// Fetch reviews by listing slug
+async function getListingReviewsBySlug(slug: string) {
+  try {
+    // First get the listing ID from the slug
+    const listing = await db
+      .select({ id: listings.id })
+      .from(listings)
+      .where(eq(listings.url, slug))
+      .limit(1);
+
+    if (!listing || listing.length === 0) {
+      return [];
+    }
+
+    const listingId = listing[0].id;
+
+    const recentReviews = await db
+      .select({
+        id: reviews.id,
+        rating: reviews.overallRating,
+        cleanlinessRating: reviews.cleanlinessRating,
+        accuracyRating: reviews.accuracyRating,
+        checkInRating: reviews.checkInRating,
+        communicationRating: reviews.communicationRating,
+        locationRating: reviews.locationRating,
+        valueRating: reviews.valueRating,
+        comment: reviews.comment,
+        createdAt: reviews.createdAt,
+        reviewerName: users.name,
+        reviewerAvatar: users.avatar,
+      })
+      .from(reviews)
+      .leftJoin(users, eq(reviews.reviewerId, users.id))
+      .where(and(eq(reviews.listingId, listingId), eq(reviews.isPublic, true)))
+      .orderBy(reviews.createdAt)
+      .limit(10);
+
+    return recentReviews;
+  } catch (error) {
+    console.error('Error fetching reviews by slug:', error);
+    return [];
+  }
 }
 
 // Helper functions

@@ -35,8 +35,8 @@ export const PHOTOS: string[] = [
 
 export const includes_demo = [
   { name: "Free cancellation up to 48 hours before pick-up" },
-  { name: "Collision Damage Waiver with $214 deductible" },
-  { name: "Theft Protection with $19,999 excess" },
+  { name: "Collision Damage Waiver with RM214 deductible" },
+  { name: "Theft Protection with RM19,999 excess" },
   { name: "Unlimited mileage" },
   {
     name: "Car interiors and exteriors cleaned with disinfectant before pick-up",

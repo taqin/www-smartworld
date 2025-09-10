@@ -131,21 +131,21 @@ const PageServicesTravelInsurance: FC<PageServicesTravelInsuranceProps> = ({}) =
             {[
               {
                 name: "Basic",
-                price: "$29",
+                price: "RM29",
                 period: "per trip",
                 popular: false,
                 features: ["Basic medical coverage", "Trip cancellation", "Lost luggage", "24/7 assistance"]
               },
               {
                 name: "Premium",
-                price: "$59",
+                price: "RM59",
                 period: "per trip",
                 popular: true,
                 features: ["Enhanced medical coverage", "Full trip protection", "Comprehensive baggage", "Rental car coverage", "Legal protection", "Priority assistance"]
               },
               {
                 name: "Annual",
-                price: "$299",
+                price: "RM299",
                 period: "per year",
                 popular: false,
                 features: ["Unlimited trips", "Maximum coverage", "All benefits included", "Family coverage", "Adventure sports", "Concierge service"]

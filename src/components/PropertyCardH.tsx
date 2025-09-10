@@ -119,7 +119,7 @@ const PropertyCardH: FC<PropertyCardHProps> = ({
           <div className="flex w-full justify-between items-end">
             <StartRating reviewCount={reviewCount} point={reviewStart} />
             <span className="flex items-center justify-center px-2.5 py-1.5 border-2 border-secondary-500 rounded-lg leading-none text-sm font-medium text-secondary-500">
-              {`${price},000`}
+              RM{price},000
             </span>
           </div>
         </div>

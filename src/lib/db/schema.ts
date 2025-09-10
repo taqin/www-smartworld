@@ -58,7 +58,7 @@ export const listings = pgTable('listings', {
   
   // Pricing
   basePrice: decimal('base_price', { precision: 10, scale: 2 }).notNull(),
-  currency: varchar('currency', { length: 3 }).default('USD').notNull(),
+  currency: varchar('currency', { length: 3 }).default('MYR').notNull(),
   priceUnit: varchar('price_unit', { length: 20 }).default('night'),
   weekdayRate: decimal('weekday_rate', { precision: 10, scale: 2 }),
   weekendRate: decimal('weekend_rate', { precision: 10, scale: 2 }),
@@ -134,6 +134,9 @@ export const listings = pgTable('listings', {
   metaTitle: varchar('meta_title', { length: 255 }),
   metaDescription: text('meta_description'),
   keywords: json('keywords').$type<string[]>().default([]),
+  
+  // URL
+  url: varchar('url', { length: 255 }).unique().notNull(),
   
   // Legal
   registrationNumber: varchar('registration_number', { length: 100 }),

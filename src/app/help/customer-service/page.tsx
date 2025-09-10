@@ -257,7 +257,7 @@ const PageHelpCustomerService: FC<PageHelpCustomerServiceProps> = ({}) => {
               },
               {
                 level: "Priority Support",
-                price: "$29/year",
+                price: "RM29/year",
                 features: [
                   "Priority email responses",
                   "Live chat access",
@@ -269,7 +269,7 @@ const PageHelpCustomerService: FC<PageHelpCustomerServiceProps> = ({}) => {
               },
               {
                 level: "VIP Concierge",
-                price: "$199/year",
+                price: "RM199/year",
                 features: [
                   "White-glove service",
                   "Personal travel consultant",

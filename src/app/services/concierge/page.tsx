@@ -131,21 +131,21 @@ const PageServicesConcierge: FC<PageServicesConciergeProps> = ({}) => {
             {[
               {
                 name: "Silver",
-                price: "$299",
+                price: "RM299",
                 period: "per month",
                 popular: false,
                 features: ["Basic concierge services", "Restaurant reservations", "Event booking assistance", "24/7 phone support"]
               },
               {
                 name: "Gold",
-                price: "$599",
+                price: "RM599",
                 period: "per month",
                 popular: true,
                 features: ["All Silver benefits", "VIP event access", "Personal shopping assistance", "Luxury partner discounts", "Dedicated concierge"]
               },
               {
                 name: "Platinum",
-                price: "$999",
+                price: "RM999",
                 period: "per month",
                 popular: false,
                 features: ["All Gold benefits", "Private jet arrangements", "Exclusive event access", "Global lifestyle management", "24/7 personal assistant"]

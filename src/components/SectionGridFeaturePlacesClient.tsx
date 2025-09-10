@@ -24,9 +24,9 @@ async function fetchFeaturedListings(limit: number = 8): Promise<StayDataType[]>
     return data.data.map((listing: any): StayDataType => ({
       id: listing.id,
       title: listing.title,
-      href: `/listing/${listing.id}` as any,
+      href: `/listing/slug/${listing.url}` as any,
       address: listing.location?.address || listing.address,
-      price: `$${listing.price?.amount || listing.basePrice}`,
+      price: `RM${listing.price?.amount || listing.basePrice}`,
       maxGuests: listing.accommodation?.maxGuests || listing.maxGuests,
       bedrooms: listing.accommodation?.bedrooms || listing.bedrooms || 0,
       bathrooms: listing.accommodation?.bathrooms || listing.bathrooms || 0,

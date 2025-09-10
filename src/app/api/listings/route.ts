@@ -88,6 +88,7 @@ export async function GET(request: NextRequest) {
         id: listings.id,
         title: listings.title,
         listingType: listings.listingType,
+        url: listings.url,
         featuredImage: listings.featuredImage,
         gallery: listings.gallery,
         basePrice: listings.basePrice,
