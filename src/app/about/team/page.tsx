@@ -14,7 +14,7 @@ export default function TeamPage() {
           </p>
         </div>
 
-        {/* Placeholder Content */}
+        {/* Main Content */}
         <div className="bg-white dark:bg-neutral-800 rounded-3xl p-8 lg:p-12 shadow-lg">
           <div className="space-y-12">
             <div className="text-center">
@@ -24,37 +24,75 @@ export default function TeamPage() {
                 </svg>
               </div>
               <h2 className="text-2xl font-semibold text-neutral-900 dark:text-white mb-4">
-                Coming Soon
+                Our Travel Curators
               </h2>
-              <p className="text-neutral-600 dark:text-neutral-300 mb-8">
-                We're preparing detailed profiles of our amazing team members. This page will feature our leadership, travel experts, and support staff who make your travel dreams come true.
+              <p className="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed max-w-3xl mx-auto">
+                Behind every flawlessly planned journey is a team of dedicated travel curators who live and breathe adventure. We aren't just agents; we are passionate explorers, cultural enthusiasts, and logistical experts committed to bringing your travel dreams to life.
               </p>
             </div>
 
-            {/* Placeholder team grid */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-                <div key={item} className="text-center p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                  <div className="w-20 h-20 bg-neutral-200 dark:bg-neutral-700 rounded-full mx-auto mb-4"></div>
-                  <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded mb-2"></div>
-                  <div className="h-3 bg-neutral-100 dark:bg-neutral-600 rounded w-2/3 mx-auto"></div>
+            {/* Team Expertise Areas */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-neutral-50 dark:bg-neutral-700 p-6 rounded-xl">
+                <div className="w-16 h-16 bg-primary-100 dark:bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-primary-600 dark:text-primary-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                  </svg>
                 </div>
-              ))}
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3 text-center">Luxury Specialists</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
+                  Our luxury experts know the secret to five-star relaxation and exclusive experiences that define premium travel.
+                </p>
+              </div>
+              <div className="bg-neutral-50 dark:bg-neutral-700 p-6 rounded-xl">
+                <div className="w-16 h-16 bg-primary-100 dark:bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-primary-600 dark:text-primary-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3 text-center">Adventure Gurus</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
+                  Our adventure specialists guide you to the world's most thrilling landscapes and unforgettable experiences.
+                </p>
+              </div>
+              <div className="bg-neutral-50 dark:bg-neutral-700 p-6 rounded-xl">
+                <div className="w-16 h-16 bg-primary-100 dark:bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-primary-600 dark:text-primary-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3 text-center">Cultural Experts</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
+                  Our cultural immersion specialists uncover authentic local connections and meaningful cultural experiences.
+                </p>
+              </div>
             </div>
 
-            {/* Placeholder departments */}
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Leadership</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">Executive team and founders</p>
+            {/* Our Approach */}
+            <div className="bg-primary-50 dark:bg-primary-900/20 p-8 rounded-xl">
+              <h3 className="text-xl font-semibold text-neutral-900 dark:text-white mb-4 text-center">Our Collaborative Approach</h3>
+              <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed text-center max-w-3xl mx-auto">
+                We work collaboratively, pooling our collective knowledge to ensure your itinerary is personalized to your unique interests and needs. At Smartworld Travels, you're not just a client; you're a fellow traveler, and our shared passion is the foundation of every expert-crafted experience.
+              </p>
+            </div>
+
+            {/* Team Values */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="text-center p-6 border border-primary-200 dark:border-primary-800 rounded-xl">
+                <h4 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">Passion</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Love for travel drives everything we do</p>
               </div>
-              <div className="text-center p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Travel Experts</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">Destination specialists and advisors</p>
+              <div className="text-center p-6 border border-primary-200 dark:border-primary-800 rounded-xl">
+                <h4 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">Expertise</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Deep knowledge of destinations worldwide</p>
               </div>
-              <div className="text-center p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Support Team</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">Customer service and operations</p>
+              <div className="text-center p-6 border border-primary-200 dark:border-primary-800 rounded-xl">
+                <h4 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">Collaboration</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Teamwork creates perfect journeys</p>
+              </div>
+              <div className="text-center p-6 border border-primary-200 dark:border-primary-800 rounded-xl">
+                <h4 className="font-semibold text-primary-600 dark:text-primary-400 mb-2">Personalization</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Tailored experiences for every traveler</p>
               </div>
             </div>
           </div>

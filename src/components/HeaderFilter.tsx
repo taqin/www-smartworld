@@ -34,10 +34,10 @@ const HeaderFilter: FC<HeaderFilterProps> = ({
   };
 
   return (
-    <div className="flex flex-col mb-8 relative">
+    <div className="flex flex-col mb-2 relative">
       <Heading desc={subHeading}>{heading}</Heading>
       <div className="flex items-center justify-between">
-        <Nav
+        {/* <Nav
           className="sm:space-x-2"
           containerClassName="relative flex w-full overflow-x-auto text-sm md:text-base hiddenScrollbar"
         >
@@ -58,7 +58,7 @@ const HeaderFilter: FC<HeaderFilterProps> = ({
               <ArrowRightIcon className="w-5 h-5 ml-3" />
             </div>
           </ButtonSecondary>
-        </span>
+        </span> */}
       </div>
     </div>
   );

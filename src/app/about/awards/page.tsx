@@ -14,7 +14,7 @@ export default function AwardsPage() {
           </p>
         </div>
 
-        {/* Placeholder Content */}
+        {/* Main Content */}
         <div className="bg-white dark:bg-neutral-800 rounded-3xl p-8 lg:p-12 shadow-lg">
           <div className="space-y-8">
             <div className="text-center">
@@ -24,46 +24,81 @@ export default function AwardsPage() {
                 </svg>
               </div>
               <h2 className="text-2xl font-semibold text-neutral-900 dark:text-white mb-4">
-                Coming Soon
+                Our Achievements
               </h2>
-              <p className="text-neutral-600 dark:text-neutral-300 mb-8">
-                We're compiling our awards, certifications, and industry recognitions. This page will showcase our achievements in travel excellence, customer service, and industry innovation.
+              <p className="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed max-w-3xl mx-auto">
+                At Smartworld Travels, our awards are more than just accolades—they are a testament to the trust our clients place in us and the dedication of our incredible team. Each recognition is a powerful validation of our commitment to excellence.
               </p>
             </div>
 
-            {/* Placeholder awards grid */}
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3, 4, 5, 6].map((item) => (
-                <div key={item} className="text-center p-6 border-2 border-dashed border-yellow-200 dark:border-yellow-700 rounded-xl">
-                  <div className="w-16 h-16 bg-yellow-100 dark:bg-yellow-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-8 h-8 text-yellow-600 dark:text-yellow-300" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
-                  </div>
-                  <div className="h-4 bg-neutral-200 dark:bg-neutral-700 rounded mb-2"></div>
-                  <div className="h-3 bg-neutral-100 dark:bg-neutral-600 rounded w-2/3 mx-auto mb-2"></div>
-                  <div className="h-3 bg-neutral-100 dark:bg-neutral-600 rounded w-1/2 mx-auto"></div>
+            {/* Featured Awards */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-yellow-50 dark:bg-yellow-900/20 p-6 rounded-xl">
+                <div className="w-16 h-16 bg-yellow-100 dark:bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-yellow-600 dark:text-yellow-200" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
                 </div>
-              ))}
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3 text-center">Best Luxury Travel Curator 2023</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
+                  Recognized for exceptional luxury travel experiences and personalized service that exceeds client expectations.
+                </p>
+              </div>
+              
+              <div className="bg-yellow-50 dark:bg-yellow-900/20 p-6 rounded-xl">
+                <div className="w-16 h-16 bg-yellow-100 dark:bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg className="w-8 h-8 text-yellow-600 dark:text-yellow-200" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3 text-center">Travelers' Choice Award for Sustainable Practice</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
+                  Honored for our commitment to responsible tourism and positive impact on local communities and environments.
+                </p>
+              </div>
             </div>
 
-            {/* Placeholder award categories */}
+            {/* Award Categories */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="text-center p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Excellence Awards</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">Service & quality recognition</p>
+              <div className="text-center p-6 border border-yellow-200 dark:border-yellow-700 rounded-xl">
+                <h4 className="font-semibold text-yellow-600 dark:text-yellow-400 mb-2">Excellence Awards</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Service & quality recognition</p>
               </div>
-              <div className="text-center p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Industry Recognition</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">Travel industry honors</p>
+              <div className="text-center p-6 border border-yellow-200 dark:border-yellow-700 rounded-xl">
+                <h4 className="font-semibold text-yellow-600 dark:text-yellow-400 mb-2">Industry Recognition</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Travel industry honors</p>
               </div>
-              <div className="text-center p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Certifications</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">Professional accreditations</p>
+              <div className="text-center p-6 border border-yellow-200 dark:border-yellow-700 rounded-xl">
+                <h4 className="font-semibold text-yellow-600 dark:text-yellow-400 mb-2">Certifications</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Professional accreditations</p>
               </div>
-              <div className="text-center p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Customer Choice</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">Client satisfaction awards</p>
+              <div className="text-center p-6 border border-yellow-200 dark:border-yellow-700 rounded-xl">
+                <h4 className="font-semibold text-yellow-600 dark:text-yellow-400 mb-2">Customer Choice</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Client satisfaction awards</p>
+              </div>
+            </div>
+
+            {/* Our Philosophy */}
+            <div className="bg-yellow-100 dark:bg-yellow-800/30 p-8 rounded-xl">
+              <h3 className="text-xl font-semibold text-neutral-900 dark:text-white mb-4 text-center">What Our Awards Mean to Us</h3>
+              <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed text-center max-w-3xl mx-auto">
+                These honors are a reflection of the extraordinary, expertly crafted experiences we've been privileged to help our clients enjoy. They prove that our innovative approach to travel, our unwavering focus on customer satisfaction, and our responsible practices are making a tangible difference in the industry.
+              </p>
+            </div>
+
+            {/* Award Impact */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center p-6 bg-neutral-50 dark:bg-neutral-700 rounded-xl">
+                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">Quality Assurance</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Our awards validate our commitment to exceptional service and travel experiences.</p>
+              </div>
+              <div className="text-center p-6 bg-neutral-50 dark:bg-neutral-700 rounded-xl">
+                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">Continuous Improvement</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Recognition motivates us to continuously raise the standard for smarter travel.</p>
+              </div>
+              <div className="text-center p-6 bg-neutral-50 dark:bg-neutral-700 rounded-xl">
+                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">Trust & Confidence</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Industry recognition builds trust with our clients and partners worldwide.</p>
               </div>
             </div>
           </div>

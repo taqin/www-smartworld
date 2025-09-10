@@ -14,7 +14,7 @@ export default function CareersPage() {
           </p>
         </div>
 
-        {/* Placeholder Content */}
+        {/* Main Content */}
         <div className="bg-white dark:bg-neutral-800 rounded-3xl p-8 lg:p-12 shadow-lg">
           <div className="space-y-8">
             <div className="text-center">
@@ -24,14 +24,69 @@ export default function CareersPage() {
                 </svg>
               </div>
               <h2 className="text-2xl font-semibold text-neutral-900 dark:text-white mb-4">
-                Coming Soon
+                Join Our Journey
               </h2>
-              <p className="text-neutral-600 dark:text-neutral-300 mb-8">
-                We're building our careers page with current job openings, company culture information, and application processes. Join us in revolutionizing the travel experience!
+              <p className="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed max-w-3xl mx-auto">
+                Do you have a passion for travel and a knack for crafting unforgettable experiences? At Smartworld Travels, we're building a team of innovators, dreamers, and global explorers.
               </p>
             </div>
 
-            {/* Placeholder job openings */}
+            {/* Our Culture */}
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-xl">
+                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <svg className="w-6 h-6 text-purple-600 dark:text-purple-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3 text-center">Collaborative Culture</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
+                  Our culture is collaborative, supportive, and driven by a shared love for what we do. We believe that the best travel is a product of inspired minds and a team-first approach.
+                </p>
+              </div>
+              
+              <div className="bg-purple-50 dark:bg-purple-900/20 p-6 rounded-xl">
+                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <svg className="w-6 h-6 text-purple-600 dark:text-purple-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3 text-center">Growth Opportunities</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
+                  We offer a vibrant work environment where you can turn your passion into a meaningful career, with opportunities for professional growth and the chance to explore the world through firsthand experience.
+                </p>
+              </div>
+            </div>
+
+            {/* Why Work With Us */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="text-center p-6 bg-neutral-50 dark:bg-neutral-700 rounded-xl">
+                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">Travel Opportunities</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Explore destinations worldwide</p>
+              </div>
+              <div className="text-center p-6 bg-neutral-50 dark:bg-neutral-700 rounded-xl">
+                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">Professional Growth</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Continuous learning & development</p>
+              </div>
+              <div className="text-center p-6 bg-neutral-50 dark:bg-neutral-700 rounded-xl">
+                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">Impact & Purpose</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Shape the future of travel</p>
+              </div>
+              <div className="text-center p-6 bg-neutral-50 dark:bg-neutral-700 rounded-xl">
+                <h4 className="font-semibold text-neutral-900 dark:text-white mb-2">Global Team</h4>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300">Work with diverse experts</p>
+              </div>
+            </div>
+
+            {/* Our Values */}
+            <div className="bg-purple-100 dark:bg-purple-800/30 p-8 rounded-xl">
+              <h3 className="text-xl font-semibold text-neutral-900 dark:text-white mb-4 text-center">Our Values</h3>
+              <p className="text-neutral-600 dark:text-neutral-300 leading-relaxed text-center max-w-3xl mx-auto">
+                If you're ready to join a group that is shaping the future of travel—with a commitment to responsibility and a drive for excellence—we invite you to build your career with us.
+              </p>
+            </div>
+
+            {/* Sample Job Openings */}
             <div className="space-y-4">
               <h3 className="text-xl font-semibold text-neutral-900 dark:text-white mb-4">Current Opportunities</h3>
               
@@ -42,75 +97,37 @@ export default function CareersPage() {
                 { title: "Software Developer", dept: "Technology", type: "Full-time" },
                 { title: "Customer Support Representative", dept: "Customer Service", type: "Part-time" }
               ].map((job, index) => (
-                <div key={index} className="p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
+                <div key={index} className="p-6 border border-purple-200 dark:border-purple-700 rounded-xl">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                     <div>
-                      <div className="h-5 bg-neutral-200 dark:bg-neutral-700 rounded w-48 mb-2"></div>
-                      <div className="flex gap-4 text-sm">
-                        <div className="h-4 bg-neutral-100 dark:bg-neutral-600 rounded w-24"></div>
-                        <div className="h-4 bg-neutral-100 dark:bg-neutral-600 rounded w-16"></div>
+                      <h4 className="font-semibold text-neutral-900 dark:text-white mb-1">{job.title}</h4>
+                      <div className="flex gap-4 text-sm text-neutral-600 dark:text-neutral-300">
+                        <span>{job.dept}</span>
+                        <span>•</span>
+                        <span>{job.type}</span>
                       </div>
                     </div>
                     <div className="mt-4 sm:mt-0">
-                      <div className="h-8 bg-purple-100 dark:bg-purple-800 rounded w-20"></div>
+                      <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                        Apply Now
+                      </button>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Why work with us */}
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="text-center p-6 border-2 border-dashed border-purple-200 dark:border-purple-700 rounded-xl">
-                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-800 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Great Team</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">Work with passionate travel experts</p>
-              </div>
-              
-              <div className="text-center p-6 border-2 border-dashed border-purple-200 dark:border-purple-700 rounded-xl">
-                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-800 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Travel Perks</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">Employee travel discounts & benefits</p>
-              </div>
-              
-              <div className="text-center p-6 border-2 border-dashed border-purple-200 dark:border-purple-700 rounded-xl">
-                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-800 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Growth Opportunities</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">Professional development & advancement</p>
-              </div>
-              
-              <div className="text-center p-6 border-2 border-dashed border-purple-200 dark:border-purple-700 rounded-xl">
-                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-800 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6 text-purple-600 dark:text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.031 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
-                </div>
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Comprehensive Benefits</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">Health, dental, and wellness programs</p>
-              </div>
-            </div>
-
-            {/* Contact info */}
+            {/* Contact Info */}
             <div className="text-center p-6 bg-neutral-50 dark:bg-neutral-700 rounded-xl">
               <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">
-                Interested in joining our team?
+                Ready to Start Your Journey?
               </h3>
               <p className="text-neutral-600 dark:text-neutral-300 mb-4">
                 Send your resume to careers@smartworldtravel.com
               </p>
-              <div className="h-10 bg-purple-600 dark:bg-purple-500 rounded w-32 mx-auto"></div>
+              <button className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors">
+                Contact Us
+              </button>
             </div>
           </div>
         </div>

@@ -128,7 +128,7 @@ export interface SectionGridFeaturePlacesDynamicProps {
 
 const SectionGridFeaturePlacesDynamic: FC<SectionGridFeaturePlacesDynamicProps> = async ({
   gridClass = "",
-  heading = "Featured places to stay",
+  heading = "Explore Our Journeys",
   subHeading = "Popular places to stay that SmartWorld recommends for you",
   headingIsCenter,
   tabs = ["New York", "Tokyo", "Paris", "London"],

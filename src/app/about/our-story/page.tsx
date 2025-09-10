@@ -14,7 +14,7 @@ export default function OurStoryPage() {
           </p>
         </div>
 
-        {/* Placeholder Content */}
+        {/* Main Content */}
         <div className="bg-white dark:bg-neutral-800 rounded-3xl p-8 lg:p-12 shadow-lg">
           <div className="space-y-8">
             <div className="text-center">
@@ -24,30 +24,37 @@ export default function OurStoryPage() {
                 </svg>
               </div>
               <h2 className="text-2xl font-semibold text-neutral-900 dark:text-white mb-4">
-                Coming Soon
+                Our Journey
               </h2>
-              <p className="text-neutral-600 dark:text-neutral-300 mb-8">
-                We're crafting an inspiring story about our journey, mission, and the passion that drives SmartWorld Travel. This page will showcase our company's history, values, and vision for the future of travel.
+              <p className="text-neutral-600 dark:text-neutral-300 mb-8 leading-relaxed">
+                At Smartworld Travels, our journey began with a simple yet powerful belief: that travel is a force for good. It broadens perspectives, builds bridges between cultures, and creates memories that last a lifetime. We founded Smartworld Travels not just as a booking agency, but as a commitment to making travel smarter, more accessible, and profoundly meaningful.
               </p>
             </div>
 
-            {/* Placeholder sections */}
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="text-center p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Our Beginning</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">The story of how we started</p>
+              <div className="bg-neutral-50 dark:bg-neutral-700 p-6 rounded-xl">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">Our Mission</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                  Our mission is to go beyond the ordinary, crafting itineraries that are intelligently planned and rich with authentic experiences. We believe in smarter value, ensuring every journey is a worthwhile investment in discovery.
+                </p>
               </div>
-              <div className="text-center p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Our Mission</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">What drives us every day</p>
+              <div className="bg-neutral-50 dark:bg-neutral-700 p-6 rounded-xl">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">Our Growth</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                  We've grown from a passionate idea into a trusted global partner, but our core mission remains unchanged: to empower you with the knowledge and expertise to see the world in a way that truly enriches your life.
+                </p>
               </div>
-              <div className="text-center p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Our Values</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">The principles we stand by</p>
+              <div className="bg-neutral-50 dark:bg-neutral-700 p-6 rounded-xl">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">Our Promise</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                  We believe in creating meaningful connections between travelers and destinations, fostering understanding and appreciation for diverse cultures and communities around the world.
+                </p>
               </div>
-              <div className="text-center p-6 border-2 border-dashed border-neutral-200 dark:border-neutral-700 rounded-xl">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Our Vision</h3>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400">Where we're heading</p>
+              <div className="bg-neutral-50 dark:bg-neutral-700 p-6 rounded-xl">
+                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-3">Our Vision</h3>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                  Our story is woven into every itinerary we create—a testament to the power of a single, smart idea that continues to inspire and guide us in making travel better for everyone.
+                </p>
               </div>
             </div>
           </div>
