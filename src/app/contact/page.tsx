@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import SectionSubscribe2 from "@/components/SectionSubscribe2";
 import SocialsList from "@/shared/SocialsList";
 import Label from "@/components/Label";
 import Input from "@/shared/Input";
@@ -84,11 +83,7 @@ const PageContact: FC<PageContactProps> = ({}) => {
         </div>
       </div>
 
-      {/* OTHER SECTIONS */}
-      <div className="container">
-        <SectionSubscribe2 className="pb-24 lg:pb-32" />
       </div>
-    </div>
   );
 };
 

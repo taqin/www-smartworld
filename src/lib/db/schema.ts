@@ -97,6 +97,134 @@ export const listings = pgTable('listings', {
     icon: string;
     category: string;
   }>>().default([]),
+
+  // Experience/Tour specific data
+  itinerary: json('itinerary').$type<Array<{
+    day: number;
+    title: string;
+    description: string;
+    activities: Array<{
+      time: string;
+      activity: string;
+      location?: string;
+      duration?: string;
+    }>;
+  }>>().default([]),
+
+  travelOptions: json('travel_options').$type<{
+    budgetLevels: Array<{
+      id: string;
+      title: string;
+      subtitle: string;
+      description: string;
+      features: string[];
+      priceAdjustment?: number; // percentage adjustment from base price
+    }>;
+    travelTypes: Array<{
+      id: string;
+      title: string;
+      description: string;
+      icon: string;
+      features: string[];
+      minGroupSize?: number;
+      maxGroupSize?: number;
+      priceAdjustment?: number; // percentage adjustment from base price
+    }>;
+  }>().default({
+    budgetLevels: [
+      {
+        id: 'mid-range',
+        title: 'Mid Range',
+        subtitle: 'Quality & Value',
+        description: 'Comfortable accommodations with good amenities',
+        features: ['3-4 star hotels', 'Private transfers', 'Guided tours', 'Quality meals'],
+        priceAdjustment: 25
+      },
+      {
+        id: 'economy',
+        title: 'Economy',
+        subtitle: 'Basic Comfort',
+        description: 'Clean and simple accommodations',
+        features: ['2-3 star hotels', 'Shared transfers', 'Group tours', 'Local meals'],
+        priceAdjustment: 0
+      },
+      {
+        id: 'budget-friendly',
+        title: 'Budget Friendly',
+        subtitle: 'Backpacking',
+        description: 'Affordable options for budget travelers',
+        features: ['Hostels/guesthouses', 'Public transport', 'Self-guided', 'Street food'],
+        priceAdjustment: -25
+      }
+    ],
+    travelTypes: [
+      {
+        id: 'family-multi',
+        title: 'Family & Multi-Generational',
+        description: 'Perfect for families with children and elderly members',
+        icon: 'la-users',
+        features: ['Kid-friendly activities', 'Elderly-accessible', 'Family rooms', 'Child care options'],
+        minGroupSize: 2,
+        maxGroupSize: 12,
+        priceAdjustment: 10
+      },
+      {
+        id: 'group-kids',
+        title: 'Group (Kids-Friendly)',
+        description: 'Group travel with children welcome',
+        icon: 'la-child',
+        features: ['Family-oriented tours', 'Child discounts', 'Kid-friendly meals', 'Play areas'],
+        minGroupSize: 4,
+        maxGroupSize: 20,
+        priceAdjustment: 5
+      },
+      {
+        id: 'group-adults',
+        title: 'Group (Adults Only)',
+        description: 'Adult-focused group experiences',
+        icon: 'la-user-friends',
+        features: ['Adult activities', 'Nightlife options', 'Romantic settings', 'Adult-oriented tours'],
+        minGroupSize: 2,
+        maxGroupSize: 16,
+        priceAdjustment: 0
+      },
+      {
+        id: 'private-fit',
+        title: 'Private Group (FIT: Adults Only)',
+        description: 'Exclusive private tours for adults',
+        icon: 'la-user-lock',
+        features: ['Personalized itinerary', 'Private guide', 'Flexible schedule', 'Exclusive access'],
+        minGroupSize: 1,
+        maxGroupSize: 8,
+        priceAdjustment: 50
+      }
+    ]
+  }),
+
+  // Experience specific fields
+  experienceDetails: json('experience_details').$type<{
+    duration: string; // e.g., "3 days 2 nights", "3.5 hours"
+    durationHours: number;
+    difficulty: 'Easy' | 'Moderate' | 'Challenging';
+    languages: string[];
+    meetingPoint: string;
+    startTime: string;
+    minAge?: number;
+    maxAge?: number;
+    physicalRequirements?: string[];
+    whatToBring?: string[];
+    dressCode?: string;
+    safetyEquipment?: string[];
+    insuranceInfo?: string;
+    emergencyContact?: string;
+  }>().default({
+    duration: '',
+    durationHours: 0,
+    difficulty: 'Easy',
+    languages: [],
+    meetingPoint: '',
+    startTime: '',
+  }),
   
   // Availability and booking rules
   minimumNights: integer('minimum_nights').default(1),
@@ -181,6 +309,25 @@ export const bookings = pgTable('bookings', {
   paymentMethod: varchar('payment_method', { length: 50 }).notNull(),
   transactionId: varchar('transaction_id', { length: 255 }),
   paidAt: timestamp('paid_at'),
+
+  // Travel experience options (for experience/tour bookings)
+  selectedBudget: varchar('selected_budget', { length: 50 }), // budget level id
+  selectedTravelType: varchar('selected_travel_type', { length: 50 }), // travel type id
+  experienceOptions: json('experience_options').$type<{
+    groupSize: number;
+    specialRequests?: string[];
+    dietaryRestrictions?: string[];
+    accessibilityNeeds?: string[];
+    customItinerary?: boolean;
+    additionalServices?: string[];
+  }>().default({
+    groupSize: 1,
+    specialRequests: [],
+    dietaryRestrictions: [],
+    accessibilityNeeds: [],
+    customItinerary: false,
+    additionalServices: [],
+  }),
   
   // Status and timestamps
   status: bookingStatusEnum('status').default('pending').notNull(),

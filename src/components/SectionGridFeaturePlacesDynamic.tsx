@@ -25,6 +25,7 @@ async function getFeaturedListings(limit: number = 8): Promise<StayDataType[]> {
         featuredImage: listings.featuredImage,
         gallery: listings.gallery,
         category: listings.category,
+        listingType: listings.listingType,
         averageRating: listings.averageRating,
         totalReviews: listings.totalReviews,
         isFeatured: listings.isFeatured,
@@ -39,10 +40,7 @@ async function getFeaturedListings(limit: number = 8): Promise<StayDataType[]> {
       })
       .from(listings)
       .leftJoin(users, eq(listings.hostId, users.id))
-      .where(and(
-        eq(listings.isActive, true),
-        eq(listings.listingType, 'stay')
-      ))
+      .where(eq(listings.isActive, true))
       .orderBy(desc(listings.isFeatured), desc(listings.views), desc(listings.createdAt))
       .limit(limit);
 
@@ -50,7 +48,7 @@ async function getFeaturedListings(limit: number = 8): Promise<StayDataType[]> {
     return featuredListings.map((listing): StayDataType => ({
       id: listing.id,
       title: listing.title,
-      href: `/listing/slug/${listing.url}` as any, // Dynamic URL
+      href: `/listing/${listing.url}` as any, // Dynamic URL
       address: listing.address,
       price: `RM${listing.basePrice}`,
       maxGuests: listing.maxGuests,
@@ -65,13 +63,13 @@ async function getFeaturedListings(limit: number = 8): Promise<StayDataType[]> {
       
       // Create listing category object
       listingCategory: {
-        id: listing.category || 'stay',
-        name: listing.category || 'Stay',
-        href: `/category/${listing.category}` as any,
+        id: listing.category || listing.listingType || 'listing',
+        name: listing.category || listing.listingType || 'Listing',
+        href: `/category/${listing.category || listing.listingType}` as any,
         taxonomy: 'category' as const,
         count: 0, // Could be calculated if needed
         thumbnail: listing.featuredImage || '',
-        listingType: 'stay' as const,
+        listingType: listing.listingType as any,
       },
       
       // Author/Host information

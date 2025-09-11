@@ -179,6 +179,55 @@ interface ListingData {
     saves: number;
     shares: number;
   };
+  experience: {
+    itinerary: Array<{
+      day: number;
+      title: string;
+      description: string;
+      activities: Array<{
+        time: string;
+        activity: string;
+        location?: string;
+        duration?: string;
+      }>;
+    }>;
+    travelOptions: {
+      budgetLevels: Array<{
+        id: string;
+        title: string;
+        subtitle: string;
+        description: string;
+        features: string[];
+        priceAdjustment?: number;
+      }>;
+      travelTypes: Array<{
+        id: string;
+        title: string;
+        description: string;
+        icon: string;
+        features: string[];
+        minGroupSize?: number;
+        maxGroupSize?: number;
+        priceAdjustment?: number;
+      }>;
+    };
+    experienceDetails: {
+      duration: string;
+      durationHours: number;
+      difficulty: 'Easy' | 'Moderate' | 'Challenging';
+      languages: string[];
+      meetingPoint: string;
+      startTime: string;
+      minAge?: number;
+      maxAge?: number;
+      physicalRequirements?: string[];
+      whatToBring?: string[];
+      dressCode?: string;
+      safetyEquipment?: string[];
+      insuranceInfo?: string;
+      emergencyContact?: string;
+    };
+  };
 }
 
 export interface ListingStayDetailClientProps {
@@ -187,6 +236,10 @@ export interface ListingStayDetailClientProps {
 
 const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData }) => {
   let [isOpenModalAmenities, setIsOpenModalAmenities] = useState(false);
+  
+  // State for new travel sections
+  const [selectedBudget, setSelectedBudget] = useState<string>('');
+  const [selectedTravelType, setSelectedTravelType] = useState<string>('');
 
   const thisPathname = usePathname();
   const router = useRouter();
@@ -229,10 +282,19 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
       const checkIn = startDate.toISOString().split('T')[0];
       const checkOut = endDate.toISOString().split('T')[0];
       
-      const response = await fetch(
-        `/api/listings/${listingData.listingId}/pricing?checkIn=${checkIn}&checkOut=${checkOut}&guests=${totalGuests}`
-      );
-
+      // Build URL with experience selections
+      let url = `/api/listings/${listingData.listingId}/pricing?checkIn=${checkIn}&checkOut=${checkOut}&guests=${totalGuests}`;
+      
+      // Add budget and travel type selections if they're selected
+      if (selectedBudget) {
+        url += `&budget=${selectedBudget}`;
+      }
+      
+      if (selectedTravelType) {
+        url += `&travelType=${selectedTravelType}`;
+      }
+      
+      const response = await fetch(url);
       const result = await response.json();
       
       if (result.success) {
@@ -249,10 +311,10 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
     }
   };
 
-  // Effect to recalculate pricing when dates or guests change
+  // Effect to recalculate pricing when dates, guests, or experience selections change
   useEffect(() => {
     calculatePricing(selectedDates.startDate, selectedDates.endDate, selectedGuests);
-  }, [selectedDates.startDate, selectedDates.endDate, selectedGuests, listingData.listingId]);
+  }, [selectedDates.startDate, selectedDates.endDate, selectedGuests, selectedBudget, selectedTravelType, listingData.listingId]);
 
   // Handlers for form input changes
   const handleDatesChange = (dates: { startDate: Date | null; endDate: Date | null }) => {
@@ -363,7 +425,7 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
     );
   };
 
-  const renderSection3 = () => {
+  const sectionAmenities = () => {
     return (
       <div className="listingSection__wrap">
         <div>
@@ -452,7 +514,7 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
     );
   };
 
-  const renderSection4 = () => {
+  const sectionRates = () => {
     return (
       <div className="listingSection__wrap">
         {/* HEADING */}
@@ -591,7 +653,7 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
     );
   };
 
-  const renderSection6 = () => {
+  const sectionReview = () => {
     return (
       <div className="listingSection__wrap">
         {/* HEADING */}
@@ -747,11 +809,333 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
     );
   };
 
+  const renderItinerary = () => {
+    const itinerary = listingData.experience.itinerary;
+    
+    return (
+      <div className="listingSection__wrap">
+        <div>
+          <h2 className="text-2xl font-semibold">Itinerary</h2>
+          <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
+            Your day-by-day travel plan
+          </span>
+        </div>
+        <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
+        
+        <div className="space-y-6">
+          {itinerary && itinerary.length > 0 ? (
+            itinerary.map((day, index) => (
+              <div key={index} className="border-l-2 border-primary-200 pl-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <span className="font-semibold text-primary-600">Day {day.day}</span>
+                  <span className="text-sm text-neutral-500">{day.title}</span>
+                </div>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-2">
+                  {day.description}
+                </p>
+                <ul className="text-sm text-neutral-600 dark:text-neutral-300 space-y-1">
+                  {day.activities.map((activity, actIndex) => (
+                    <li key={actIndex}>
+                      • {activity.time}: {activity.activity}
+                      {activity.location && <span className="text-neutral-500 ml-2">({activity.location})</span>}
+                      {activity.duration && <span className="text-neutral-500 ml-2">[{activity.duration}]</span>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          ) : (
+            <div className="text-center py-8 text-neutral-500">
+              No itinerary available for this experience.
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const renderTravelBudget = () => {
+    const budgetOptions = listingData.experience.travelOptions.budgetLevels;
+
+    return (
+      <div className="listingSection__wrap">
+        <div>
+          <h2 className="text-2xl font-semibold">Travel Budget</h2>
+          <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
+            Choose your preferred travel style
+          </span>
+        </div>
+        <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
+        
+        <div className="space-y-4">
+          {budgetOptions && budgetOptions.length > 0 ? (
+            budgetOptions.map((option) => (
+              <div key={option.id} className="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 hover:border-primary-300 transition-colors">
+                <div className="flex items-start justify-between mb-2">
+                  <div>
+                    <h3 className="font-semibold text-lg">{option.title}</h3>
+                    <p className="text-sm text-neutral-500">{option.subtitle}</p>
+                  </div>
+                  <input 
+                    type="radio" 
+                    name="budget" 
+                    value={option.id} 
+                    className="mt-1"
+                    checked={selectedBudget === option.id}
+                    onChange={() => setSelectedBudget(option.id)}
+                  />
+                </div>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-3">
+                  {option.description}
+                </p>
+                <div className="grid grid-cols-2 gap-2 text-xs text-neutral-500">
+                  {option.features.map((feature, index) => (
+                    <div key={index} className="flex items-center space-x-1">
+                      <i className="las la-check text-green-500"></i>
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+                {option.priceAdjustment !== undefined && (
+                  <div className="mt-2 text-sm font-medium">
+                    {option.priceAdjustment > 0 ? (
+                      <span className="text-green-600">+{option.priceAdjustment}% premium</span>
+                    ) : option.priceAdjustment < 0 ? (
+                      <span className="text-red-600">{option.priceAdjustment}% discount</span>
+                    ) : (
+                      <span className="text-gray-600">Standard pricing</span>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))
+          ) : (
+            <div className="text-center py-8 text-neutral-500">
+              No budget options available for this experience.
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const renderTravelType = () => {
+    const travelTypes = listingData.experience.travelOptions.travelTypes;
+
+    return (
+      <div className="listingSection__wrap">
+        <div>
+          <h2 className="text-2xl font-semibold">Travel Type</h2>
+          <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
+            Select your preferred travel group type
+          </span>
+        </div>
+        <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {travelTypes && travelTypes.length > 0 ? (
+            travelTypes.map((type) => (
+              <div key={type.id} className="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 hover:border-primary-300 transition-colors cursor-pointer">
+                <div className="flex items-center space-x-3 mb-3">
+                  <div className="w-10 h-10 bg-primary-100 dark:bg-primary-900 rounded-full flex items-center justify-center">
+                    <i className={`las ${type.icon} text-primary-600`}></i>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold">{type.title}</h3>
+                    <input 
+                      type="radio" 
+                      name="travelType" 
+                      value={type.id} 
+                      className="float-right"
+                      checked={selectedTravelType === type.id}
+                      onChange={() => setSelectedTravelType(type.id)}
+                    />
+                  </div>
+                </div>
+                <p className="text-sm text-neutral-600 dark:text-neutral-300 mb-3">
+                  {type.description}
+                </p>
+                <div className="space-y-1">
+                  {type.features.map((feature, index) => (
+                    <div key={index} className="flex items-center space-x-1 text-xs text-neutral-500">
+                      <i className="las la-check text-green-500"></i>
+                      <span>{feature}</span>
+                    </div>
+                  ))}
+                </div>
+                {type.minGroupSize && type.maxGroupSize && (
+                  <div className="mt-2 text-xs text-neutral-500">
+                    Group size: {type.minGroupSize}-{type.maxGroupSize} people
+                  </div>
+                )}
+                {type.priceAdjustment !== undefined && (
+                  <div className="mt-1 text-sm font-medium">
+                    {type.priceAdjustment > 0 ? (
+                      <span className="text-green-600">+{type.priceAdjustment}% premium</span>
+                    ) : type.priceAdjustment < 0 ? (
+                      <span className="text-red-600">{type.priceAdjustment}% discount</span>
+                    ) : (
+                      <span className="text-gray-600">Standard pricing</span>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))
+          ) : (
+            <div className="col-span-2 text-center py-8 text-neutral-500">
+              No travel types available for this experience.
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  const renderExperienceDetails = () => {
+    const details = listingData.experience.experienceDetails;
+    
+    return (
+      <div className="listingSection__wrap">
+        <div>
+          <h2 className="text-2xl font-semibold">Experience Details</h2>
+          <span className="block mt-2 text-neutral-500 dark:text-neutral-400">
+            Important information about your experience
+          </span>
+        </div>
+        <div className="w-14 border-b border-neutral-200 dark:border-neutral-700"></div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-semibold mb-2">Duration</h3>
+              <p className="text-neutral-600 dark:text-neutral-300">{details.duration}</p>
+              <p className="text-sm text-neutral-500">{details.durationHours} hours</p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-2">Difficulty Level</h3>
+              <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${
+                details.difficulty === 'Easy' ? 'bg-green-100 text-green-800' :
+                details.difficulty === 'Moderate' ? 'bg-yellow-100 text-yellow-800' :
+                'bg-red-100 text-red-800'
+              }`}>
+                {details.difficulty}
+              </span>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-2">Languages</h3>
+              <div className="flex flex-wrap gap-2">
+                {(details.languages || []).map((lang, index) => (
+                  <span key={index} className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">
+                    {lang}
+                  </span>
+                ))}
+              </div>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-2">Meeting Point</h3>
+              <p className="text-neutral-600 dark:text-neutral-300">{details.meetingPoint}</p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold mb-2">Start Time</h3>
+              <p className="text-neutral-600 dark:text-neutral-300">{details.startTime}</p>
+            </div>
+          </div>
+          
+          <div className="space-y-4">
+            {(details.minAge || details.maxAge) && (
+              <div>
+                <h3 className="font-semibold mb-2">Age Requirements</h3>
+                <p className="text-neutral-600 dark:text-neutral-300">
+                  {details.minAge && details.maxAge 
+                    ? `${details.minAge} - ${details.maxAge} years`
+                    : details.minAge 
+                    ? `${details.minAge} years and above`
+                    : `Up to ${details.maxAge} years`
+                  }
+                </p>
+              </div>
+            )}
+            
+            {details.physicalRequirements && details.physicalRequirements.length > 0 && (
+              <div>
+                <h3 className="font-semibold mb-2">Physical Requirements</h3>
+                <ul className="text-sm text-neutral-600 dark:text-neutral-300 space-y-1">
+                  {(details.physicalRequirements || []).map((req, index) => (
+                    <li key={index}>• {req}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+            {details.whatToBring && details.whatToBring.length > 0 && (
+              <div>
+                <h3 className="font-semibold mb-2">What to Bring</h3>
+                <ul className="text-sm text-neutral-600 dark:text-neutral-300 space-y-1">
+                  {(details.whatToBring || []).map((item, index) => (
+                    <li key={index}>• {item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+            {details.dressCode && (
+              <div>
+                <h3 className="font-semibold mb-2">Dress Code</h3>
+                <p className="text-neutral-600 dark:text-neutral-300">{details.dressCode}</p>
+              </div>
+            )}
+            
+            {details.safetyEquipment && details.safetyEquipment.length > 0 && (
+              <div>
+                <h3 className="font-semibold mb-2">Safety Equipment</h3>
+                <ul className="text-sm text-neutral-600 dark:text-neutral-300 space-y-1">
+                  {(details.safetyEquipment || []).map((item, index) => (
+                    <li key={index}>• {item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </div>
+        
+        {(details.insuranceInfo || details.emergencyContact) && (
+          <div className="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+            <h3 className="font-semibold mb-2 text-yellow-800 dark:text-yellow-200">Important Information</h3>
+            {details.insuranceInfo && (
+              <p className="text-sm text-yellow-700 dark:text-yellow-300 mb-2">
+                <strong>Insurance:</strong> {details.insuranceInfo}
+              </p>
+            )}
+            {details.emergencyContact && (
+              <p className="text-sm text-yellow-700 dark:text-yellow-300">
+                <strong>Emergency Contact:</strong> {details.emergencyContact}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   const renderSidebar = () => {
     const handleBookingClick = () => {
       // Validate that dates are selected
       if (!selectedDates.startDate || !selectedDates.endDate) {
         alert('Please select check-in and check-out dates');
+        return;
+      }
+
+      // Validate experience selections
+      if (!selectedBudget) {
+        alert('Please select your preferred travel budget');
+        return;
+      }
+      if (!selectedTravelType) {
+        alert('Please select your preferred travel type');
         return;
       }
 
@@ -769,7 +1153,18 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
         priceUnit: listingData.pricing.priceUnit,
         instantBook: listingData.availability.instantBook,
         hostName: listingData.host.name,
-        hostId: listingData.host.id
+        hostId: listingData.host.id,
+        // Experience selections
+        selectedBudget: selectedBudget,
+        selectedTravelType: selectedTravelType,
+        experienceOptions: {
+          groupSize: selectedGuests.guestAdults + selectedGuests.guestChildren,
+          specialRequests: [],
+          dietaryRestrictions: [],
+          accessibilityNeeds: [],
+          customItinerary: false,
+          additionalServices: []
+        }
       };
 
       // Encode booking data and navigate to booking page
@@ -813,6 +1208,36 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
             defaultChildren={selectedGuests.guestChildren}
             defaultInfants={selectedGuests.guestInfants}
           />
+          
+          {/* Experience selections */}
+          <>
+            <div className="w-full border-b border-neutral-200 dark:border-neutral-700"></div>
+            <div className="p-4 space-y-3">
+              <div className="text-sm font-medium text-neutral-700 dark:text-neutral-300">
+                Travel Style
+              </div>
+              <div className="space-y-2">
+                {listingData.experience.travelOptions.budgetLevels.slice(0, 3).map((budget) => (
+                  <label key={budget.id} className="flex items-center space-x-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="budget"
+                      value={budget.id}
+                      checked={selectedBudget === budget.id}
+                      onChange={() => setSelectedBudget(budget.id)}
+                      className="text-primary-600"
+                    />
+                    <span className="text-sm">{budget.title}</span>
+                    {budget.priceAdjustment && budget.priceAdjustment !== 0 && (
+                      <span className="text-xs text-neutral-500">
+                        ({budget.priceAdjustment > 0 ? '+' : ''}{budget.priceAdjustment}%)
+                      </span>
+                    )}
+                  </label>
+                ))}
+              </div>
+            </div>
+          </>
         </form>
 
         {/* SUM */}
@@ -948,12 +1373,15 @@ const ListingStayDetailClient: FC<ListingStayDetailClientProps> = ({ listingData
         <div className="w-full lg:w-3/5 xl:w-2/3 space-y-8 lg:space-y-10 lg:pr-10">
           {renderSection1()}
           {renderSection2()}
-          {renderSection3()}
-          {renderSection4()}
-          <SectionDateRange />
-          {renderSection5()}
-          {renderSection6()}
-          {renderSection7()}
+          {/* Experience sections */}
+          {renderItinerary()}
+          {renderTravelBudget()}
+          <SectionDateRange /> 
+          {renderTravelType()}
+          {renderExperienceDetails()}
+          {sectionAmenities()}
+          {sectionRates()}         
+          {sectionReview()}
           {renderSection8()}
         </div>
 

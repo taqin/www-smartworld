@@ -15,6 +15,13 @@
       "when": 1757473059761,
       "tag": "0001_slippery_beyonder",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1757566444834,
+      "tag": "0002_open_bloodstorm",
+      "breakpoints": true
     }
   ]
 }

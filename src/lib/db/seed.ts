@@ -337,6 +337,246 @@ async function main() {
         totalReviews: 19,
         averageRating: 4.7,
         url: generateSlug('Cozy Mountain Cabin'),
+      },
+      {
+        hostId: host1.id,
+        title: 'Tokyo Cultural Experience',
+        description: 'Immerse yourself in Japanese culture with this comprehensive 3-day experience exploring Tokyo\'s traditional and modern attractions.',
+        extendedDescription: 'This cultural experience combines traditional Japanese arts, modern city exploration, and authentic culinary experiences. Perfect for travelers who want to deeply understand Japanese culture.',
+        listingType: 'experience',
+        category: 'Cultural Tour',
+        badge: 'Cultural Immersion',
+        basePrice: '450.00',
+        currency: 'MYR',
+        priceUnit: 'person',
+        weekdayRate: '450.00',
+        weekendRate: '480.00',
+        monthlyDiscountPercent: 10.0,
+        serviceFee: '45.00',
+        cleaningFee: '0.00',
+        taxesPercent: 8.0,
+        address: 'Tokyo, Japan',
+        fullAddress: 'Shibuya, Tokyo, Japan',
+        latitude: 35.6762,
+        longitude: 139.6503,
+        maxGuests: 12,
+        bedrooms: 0,
+        beds: 0,
+        bathrooms: 0,
+        propertyType: 'Experience',
+        featuredImage: 'https://images.pexels.com/photos/3819558/pexels-photo-3819558.jpeg',
+        gallery: [
+          {
+            id: 0,
+            url: 'https://images.pexels.com/photos/3819558/pexels-photo-3819558.jpeg',
+            alt: 'Tokyo temple',
+            caption: 'Traditional Japanese temple'
+          },
+          {
+            id: 1,
+            url: 'https://images.pexels.com/photos/3938022/pexels-photo-3938022.jpeg',
+            alt: 'Sushi making',
+            caption: 'Traditional sushi making class'
+          }
+        ],
+        amenities: [
+          { id: 'guide', name: 'Professional Guide', icon: 'la-user-tie', category: 'service' },
+          { id: 'transport', name: 'Transportation Included', icon: 'la-bus', category: 'transport' },
+          { id: 'meals', name: 'Meals Included', icon: 'la-utensils', category: 'food' },
+          { id: 'insurance', name: 'Travel Insurance', icon: 'la-shield-alt', category: 'safety' }
+        ],
+        minimumNights: 3,
+        maximumNights: 3,
+        checkInTime: '09:00',
+        checkOutTime: '18:00',
+        instantBook: true,
+        cancellationType: 'flexible',
+        isActive: true,
+        isFeatured: true,
+        isTrending: true,
+        views: 1247,
+        saves: 89,
+        shares: 23,
+        totalReviews: 15,
+        averageRating: 4.9,
+        url: generateSlug('Tokyo Cultural Experience'),
+        itinerary: [
+          {
+            day: 1,
+            title: 'Traditional Tokyo Arrival',
+            description: 'Welcome to Tokyo! Begin your cultural immersion with a visit to Senso-ji Temple and Asakusa.',
+            activities: [
+              { time: '09:00', activity: 'Airport pickup and hotel check-in', location: 'Narita Airport', duration: '2 hours' },
+              { time: '12:00', activity: 'Traditional Japanese lunch', location: 'Asakusa', duration: '1 hour' },
+              { time: '14:00', activity: 'Senso-ji Temple visit', location: 'Asakusa', duration: '2 hours' },
+              { time: '16:30', activity: 'Nakamise shopping street', location: 'Asakusa', duration: '1.5 hours' },
+              { time: '19:00', activity: 'Welcome dinner', location: 'Traditional Izakaya', duration: '2 hours' }
+            ]
+          },
+          {
+            day: 2,
+            title: 'Modern Culture & Arts',
+            description: 'Explore modern Tokyo with visits to Harajuku, Shibuya, and a traditional tea ceremony.',
+            activities: [
+              { time: '08:00', activity: 'Traditional Japanese breakfast', location: 'Hotel', duration: '1 hour' },
+              { time: '10:00', activity: 'Meiji Shrine visit', location: 'Harajuku', duration: '1.5 hours' },
+              { time: '12:00', activity: 'Explore Takeshita Street', location: 'Harajuku', duration: '2 hours' },
+              { time: '15:00', activity: 'Traditional tea ceremony', location: 'Ueno Park', duration: '1.5 hours' },
+              { time: '17:30', activity: 'Shibuya crossing experience', location: 'Shibuya', duration: '1 hour' },
+              { time: '19:30', activity: 'Sushi making class', location: 'Tsukiji', duration: '2.5 hours' }
+            ]
+          },
+          {
+            day: 3,
+            title: 'Art & Technology',
+            description: 'Experience the blend of tradition and technology with visits to teamLab and Akihabara.',
+            activities: [
+              { time: '09:00', activity: 'TeamLab Borderless digital art museum', location: 'Odaiba', duration: '3 hours' },
+              { time: '13:00', activity: 'Modern Japanese lunch', location: 'Odaiba', duration: '1 hour' },
+              { time: '15:00', activity: 'Akihabara electric town', location: 'Akihabara', duration: '2.5 hours' },
+              { time: '18:00', activity: 'Farewell dinner with Maiko performance', location: 'Ginza', duration: '3 hours' }
+            ]
+          }
+        ],
+        experienceDetails: {
+          duration: '3 days',
+          durationHours: 24,
+          difficulty: 'Easy',
+          languages: ['English', 'Japanese'],
+          meetingPoint: 'Narita Airport Terminal 1',
+          startTime: '09:00',
+          whatToBring: ['Comfortable walking shoes', 'Weather-appropriate clothing', 'Camera', 'Water bottle'],
+          dressCode: 'Smart casual',
+          safetyEquipment: ['First aid kit', 'Emergency contact card'],
+          emergencyContact: '+81-3-1234-5678'
+        },
+      },
+      {
+        hostId: host2.id,
+        title: 'Bali Adventure Package',
+        description: 'Experience the best of Bali with this action-packed 4-day adventure including surfing, temple visits, and rice terrace exploration.',
+        extendedDescription: 'This comprehensive adventure package takes you through Bali\'s most stunning landscapes and cultural sites. From surfing lessons to traditional temple ceremonies, experience the island like never before.',
+        listingType: 'experience',
+        category: 'Adventure',
+        badge: 'Adventure Seeker',
+        basePrice: '680.00',
+        currency: 'MYR',
+        priceUnit: 'person',
+        weekdayRate: '680.00',
+        weekendRate: '720.00',
+        monthlyDiscountPercent: 15.0,
+        serviceFee: '68.00',
+        cleaningFee: '0.00',
+        taxesPercent: 10.0,
+        address: 'Bali, Indonesia',
+        fullAddress: 'Ubud, Bali, Indonesia',
+        latitude: -8.3405,
+        longitude: 115.0920,
+        maxGuests: 8,
+        bedrooms: 0,
+        beds: 0,
+        bathrooms: 0,
+        propertyType: 'Experience',
+        featuredImage: 'https://images.pexels.com/photos/3020941/pexels-photo-3020941.jpeg',
+        gallery: [
+          {
+            id: 0,
+            url: 'https://images.pexels.com/photos/3020941/pexels-photo-3020941.jpeg',
+            alt: 'Bali rice terraces',
+            caption: 'Stunning rice terrace views'
+          },
+          {
+            id: 1,
+            url: 'https://images.pexels.com/photos/147413/new-york-skyline-manhattan-hudson-147413.jpeg',
+            alt: 'Surfing lesson',
+            caption: 'Professional surfing instruction'
+          }
+        ],
+        amenities: [
+          { id: 'guide', name: 'Expert Guide', icon: 'la-user-tie', category: 'service' },
+          { id: 'transport', name: 'All Transport', icon: 'la-car', category: 'transport' },
+          { id: 'accommodation', name: 'Hotel Included', icon: 'la-bed', category: 'accommodation' },
+          { id: 'equipment', name: 'Equipment Provided', icon: 'la-tools', category: 'equipment' }
+        ],
+        minimumNights: 4,
+        maximumNights: 4,
+        checkInTime: '08:00',
+        checkOutTime: '20:00',
+        instantBook: false,
+        cancellationType: 'moderate',
+        isActive: true,
+        isFeatured: true,
+        isTrending: true,
+        views: 1567,
+        saves: 145,
+        shares: 67,
+        totalReviews: 23,
+        averageRating: 4.7,
+        url: generateSlug('Bali Adventure Package'),
+        itinerary: [
+          {
+            day: 1,
+            title: 'Beach & Surf Introduction',
+            description: 'Start your Bali adventure with surfing lessons and beach relaxation in Kuta.',
+            activities: [
+              { time: '08:00', activity: 'Airport pickup and hotel transfer', location: 'Denpasar Airport', duration: '1 hour' },
+              { time: '10:00', activity: 'Hotel check-in and orientation', location: 'Kuta Beach Resort', duration: '1 hour' },
+              { time: '12:00', activity: 'Welcome Indonesian lunch', location: 'Hotel restaurant', duration: '1 hour' },
+              { time: '14:00', activity: 'Beginner surfing lesson', location: 'Kuta Beach', duration: '3 hours' },
+              { time: '18:00', activity: 'Beach sunset dinner', location: 'Kuta Beach', duration: '2 hours' }
+            ]
+          },
+          {
+            day: 2,
+            title: 'Cultural Temple Tour',
+            description: 'Explore Bali\'s spiritual side with visits to ancient temples and traditional villages.',
+            activities: [
+              { time: '07:00', activity: 'Early morning yoga session', location: 'Hotel', duration: '1 hour' },
+              { time: '08:30', activity: 'Traditional Indonesian breakfast', location: 'Hotel', duration: '1 hour' },
+              { time: '10:00', activity: 'Tanah Lot Temple visit', location: 'Tabanan', duration: '2.5 hours' },
+              { time: '13:00', activity: 'Lunch with ocean view', location: 'Tanah Lot', duration: '1.5 hours' },
+              { time: '15:30', activity: 'Traditional Batik workshop', location: 'Ubud', duration: '2 hours' },
+              { time: '18:30', activity: 'Traditional Kecak dance performance', location: 'Uluwatu Temple', duration: '2 hours' }
+            ]
+          },
+          {
+            day: 3,
+            title: 'Rice Terrace Adventure',
+            description: 'Trek through stunning rice terraces and experience traditional Balinese village life.',
+            activities: [
+              { time: '06:30', activity: 'Morning meditation', location: 'Hotel', duration: '1 hour' },
+              { time: '08:00', activity: 'Breakfast with tropical fruits', location: 'Hotel', duration: '1 hour' },
+              { time: '10:00', activity: 'Tegallalang Rice Terrace trek', location: 'Ubud', duration: '3 hours' },
+              { time: '14:00', activity: 'Traditional Balinese lunch', location: 'Ubud', duration: '1.5 hours' },
+              { time: '16:00', activity: 'Visit to Sacred Monkey Forest', location: 'Ubud', duration: '2 hours' },
+              { time: '19:00', activity: 'Traditional Balinese cooking class', location: 'Local family home', duration: '3 hours' }
+            ]
+          },
+          {
+            day: 4,
+            title: 'Waterfall & Departure',
+            description: 'Chase waterfalls and enjoy some final adventure before departure.',
+            activities: [
+              { time: '07:30', activity: 'Breakfast', location: 'Hotel', duration: '1 hour' },
+              { time: '09:00', activity: 'Tegenungan Waterfall visit', location: 'Gianyar', duration: '2.5 hours' },
+              { time: '12:30', activity: 'Final Balinese lunch', location: 'Local restaurant', duration: '1.5 hours' },
+              { time: '14:30', activity: 'Last minute souvenir shopping', location: 'Ubud Market', duration: '2 hours' },
+              { time: '17:00', activity: 'Airport transfer', location: 'Hotel', duration: '1 hour' }
+            ]
+          }
+        ],
+        experienceDetails: {
+          duration: '4 days',
+          durationHours: 32,
+          difficulty: 'Moderate',
+          languages: ['English', 'Indonesian'],
+          meetingPoint: 'Denpasar Airport Terminal',
+          startTime: '08:00',
+          whatToBring: ['Swimwear', 'Sunscreen', 'Hiking shoes', 'Insect repellent', 'Camera'],
+          dressCode: 'Casual beachwear',
+          safetyEquipment: ['First aid kit', 'Life jacket for surfing', 'Emergency contact card'],
+          emergencyContact: '+62-361-1234-567'
+        },
       }
     ]).returning();
 
@@ -464,7 +704,7 @@ async function main() {
     console.log(`
 📊 Seeded data:
 - Users: 3 (2 hosts, 1 guest)
-- Listings: 4 (1 beach house, 1 apartment, 1 luxury villa, 1 mountain cabin)
+- Listings: 6 (2 stays, 2 experiences - Tokyo Cultural Experience & Bali Adventure Package, 2 other stays)
 - Availability: ${availabilityData.length} records (90 days for each listing)
 - Bookings: 1 confirmed booking
 - Reviews: 2 reviews
@@ -473,6 +713,9 @@ async function main() {
 1. View Drizzle Studio: npm run db:studio
 2. Start your app: npm run dev
 3. Test API endpoints: /api/listings, /api/listings/[id], etc.
+4. Check out the experience listings with detailed itineraries at:
+   - /listing/tokyo-cultural-experience
+   - /listing/bali-adventure-package
     `);
 
   } catch (error) {

@@ -1,7 +1,6 @@
 import SectionHeroArchivePage from "@/app/(server-components)/SectionHeroArchivePage";
 import BgGlassmorphism from "@/components/BgGlassmorphism";
 import SectionSliderNewCategories from "@/components/SectionSliderNewCategories";
-import SectionSubscribe2 from "@/components/SectionSubscribe2";
 import React, { FC } from "react";
 import SectionGridFilterCard from "../SectionGridFilterCard";
 
@@ -37,9 +36,7 @@ const ListingFlightsPage: FC<ListingFlightsPageProps> = ({}) => {
           itemPerRow={4}
         />
 
-        {/* SECTION */}
-        <SectionSubscribe2 className="py-24 lg:py-28" />
-      </div>
+          </div>
     </div>
   );
 };

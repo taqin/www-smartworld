@@ -3,7 +3,6 @@
 import BackgroundSection from "@/components/BackgroundSection";
 import ListingImageGallery from "@/components/listing-image-gallery/ListingImageGallery";
 import SectionSliderNewCategories from "@/components/SectionSliderNewCategories";
-import SectionSubscribe2 from "@/components/SectionSubscribe2";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { ReactNode, Suspense } from "react";
 import MobileFooterSticky from "./(components)/MobileFooterSticky";
@@ -61,7 +60,6 @@ const DetailLayoutContent = ({ children }: { children: ReactNode }) => {
             sliderStyle="style2"
           />
         </div>
-        <SectionSubscribe2 className="pt-24 lg:pt-32" />
       </div>
 
       {/* STICKY FOOTER MOBILE */}

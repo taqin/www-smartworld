@@ -6,7 +6,6 @@ import SectionHero from "./SectionHero";
 import BgGlassmorphism from "@/components/BgGlassmorphism";
 import BackgroundSection from "@/components/BackgroundSection";
 import SectionClientSay from "@/components/SectionClientSay";
-import SectionSubscribe2 from "@/components/SectionSubscribe2";
 
 export interface PageAboutProps {}
 
@@ -32,8 +31,7 @@ const PageAbout: FC<PageAboutProps> = ({}) => {
 
         <SectionStatistic />
 
-        <SectionSubscribe2 />
-      </div>
+        </div>
     </div>
   );
 };

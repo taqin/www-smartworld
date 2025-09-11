@@ -85,6 +85,11 @@ async function getListingData(id: string) {
         createdAt: listings.createdAt,
         updatedAt: listings.updatedAt,
         
+        // Experience fields
+        itinerary: listings.itinerary,
+        travelOptions: listings.travelOptions,
+        experienceDetails: listings.experienceDetails,
+        
         // Host fields
         hostId: users.id,
         hostName: users.name,
@@ -103,7 +108,7 @@ async function getListingData(id: string) {
       })
       .from(listings)
       .leftJoin(users, eq(listings.hostId, users.id))
-      .where(and(eq(listings.id, id), eq(listings.isActive, true)))
+      .where(and(eq(listings.url, id), eq(listings.isActive, true)))
       .limit(1);
 
     if (!listing || listing.length === 0) {
@@ -151,14 +156,13 @@ async function getListingReviews(listingId: string) {
 // Server Component - fetches data and renders client component
 export default async function ListingStayDetailPage({ params }: PageProps) {
   const { id } = await params;
-  const [listingData, reviewsData] = await Promise.all([
-    getListingData(id),
-    getListingReviews(id)
-  ]);
-
+  const listingData = await getListingData(id);
+  
   if (!listingData) {
     notFound();
   }
+  
+  const reviewsData = await getListingReviews(listingData.id);
 
   // Transform data to match the expected format
   const transformedData = {
@@ -317,6 +321,18 @@ export default async function ListingStayDetailPage({ params }: PageProps) {
       saves: listingData.saves || 0,
       shares: listingData.shares || 0,
     },
+    experience: {
+      itinerary: listingData.itinerary || [],
+      travelOptions: listingData.travelOptions || { budgetLevels: [], travelTypes: [] },
+      experienceDetails: listingData.experienceDetails || {
+        duration: '',
+        durationHours: 0,
+        difficulty: 'Easy',
+        languages: [],
+        meetingPoint: '',
+        startTime: '',
+      },
+    },
   };
 
   // Increment view count (fire and forget)
@@ -325,7 +341,7 @@ export default async function ListingStayDetailPage({ params }: PageProps) {
       views: (listingData.views || 0) + 1,
       updatedAt: new Date()
     })
-    .where(eq(listings.id, id))
+    .where(eq(listings.id, listingData.id))
     .catch(console.error);
 
   return <ListingStayDetailClient listingData={transformedData} />;

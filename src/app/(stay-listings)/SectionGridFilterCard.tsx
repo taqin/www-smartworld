@@ -94,7 +94,7 @@ const SectionGridFilterCard: FC<SectionGridFilterCardProps> = ({
       starRating: listing.rating,
     },
     date: listing.createdAt,
-    href: `/listing/slug/${listing.url}`,
+    href: `/listing/${listing.url}`,
     title: listing.title,
     featuredImage: listing.featuredImage,
     commentCount: listing.reviewCount,
